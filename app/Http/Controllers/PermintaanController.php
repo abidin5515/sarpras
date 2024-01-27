@@ -34,7 +34,8 @@ class PermintaanController extends Controller
             'permintaan.masalah',
             'permintaan.lantai',
             'permintaan.foto',
-            'permintaan.status'
+            'permintaan.status',
+            'permintaan.created_at'
             
     ])->where('status','pending')->orderBy('permintaan.id','desc');
           // $data->where('permintaan.status', '!=', 'selesai');
@@ -57,7 +58,7 @@ class PermintaanController extends Controller
 
               ';
             })->addColumn('tanggal',function($d){
-                return date('d-m-Y', strtotime($d->tanggal));
+                return date('d-m-Y', strtotime($d->created_at));
               })->addColumn('ruang',function($d){
                 return @$d->ruangan->nama;
               })
@@ -202,7 +203,8 @@ class PermintaanController extends Controller
             'permintaan.masalah',
             'permintaan.lantai',
             'permintaan.foto',
-            'permintaan.status'
+            'permintaan.status',
+            'permintaan.created_at'
             
     ])->where('status','selesai')->orderBy('permintaan.id','desc');
           // $data->where('permintaan.status', '!=', 'selesai');
@@ -223,7 +225,7 @@ class PermintaanController extends Controller
 
               // ';
             })->addColumn('tanggal',function($d){
-                return date('d-m-Y', strtotime($d->tanggal));
+                return date('d-m-Y', strtotime($d->created_at));
               })->addColumn('ruang',function($d){
                 return @$d->ruangan->nama;
               })

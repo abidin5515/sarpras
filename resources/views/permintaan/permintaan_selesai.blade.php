@@ -70,8 +70,8 @@
                 <div class="table table-responsive">
                         <table class="table table-bordered" id="table">
                     <thead>
-{{--                         <th>Tanggal</th>
-                        <th>Unit/Pengirim</th> --}}
+                        <th>Tanggal</th>
+                        {{-- <th>Unit/Pengirim</th> --}}
                         <th>Ruang</th>
                         <th>Masalah</th>
                         <th>Foto</th>
@@ -164,7 +164,7 @@ function load(){
   },
         },
         columns: [
-            // {data:'tanggal',name: 'permintaan.tanggal' },
+            {data:'tanggal',name: 'permintaan.tanggal' },
             // {data:'pengirim',name: 'permintaan.pengirim' },
             {data:'ruang',name: 'ruang' },
             {data:'masalah',name: 'permintaan.masalah' },

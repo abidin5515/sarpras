@@ -19,9 +19,12 @@
   <link rel="stylesheet" href="{{ url('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url("/src/select2/dist/css/select2.min.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url("/src/select2-bootstrap-theme/dist/select2-bootstrap.min.css") }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ url('css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/select2-bootstrap4.min.css') }}">
   <style type="text/css">
     .error {
       color: red;
@@ -89,7 +92,7 @@
 
         <div class="form-group">
           <label>Ruangan:</label>
-          <select class="form-control" name="id_ruang">
+          <select class="form-control" name="id_ruang" id="id_ruang">
             <option value="">-- Pilih Ruang --</option>
             @if ($ruangan)
               @foreach ($ruangan as $d)
@@ -182,6 +185,7 @@
 <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('dist/js/adminlte.min.js') }}"></script>
+ <script type="text/javascript" src="{{ url("/src/select2/dist/js/select2.min.js") }}"></script>
 <script type="text/javascript">
   $.ajaxSetup({
     headers: {
@@ -232,6 +236,11 @@ $(document).on('change', '#show-hide', function(){
 
 
 $('div.alert').delay(3000).slideUp(300);
+
+
+    $(document).ready(function() {
+        $('#id_ruang').select2();
+    });
 
 </script>
   </div>
