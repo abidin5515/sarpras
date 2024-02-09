@@ -24,13 +24,24 @@
             <!-- /.box-header -->
             <div class="card-body">
                 <div class="row">
-                  <div class="col-lg-4">
-                    <b style="font-size: 16px; ">Perbaikan Hari Ini</b>
+                  <div class="col-lg-5">
+                    <div class="col-md-12">
+                      <b style="font-size: 14px; ">Permintaan Pending</b>
+                    <a style="float: right;" class="btn btn-sm btn-info" href="{{ url('permintaan') }}">Selengkapnya</a>
+                    <div id="permintaan-pending"></div>
+                    </div>
+
+                    <hr>
+
+                    <div class="col-md-12">
+                      <b style="font-size: 14px; ">Perbaikan Hari Ini</b>
                     <a style="float: right;" class="btn btn-sm btn-info" href="{{ url('catatan-pemeliharaan') }}">Selengkapnya</a>
                     <div id="perbaikan"></div>
+                    </div>
+
                   </div>
-                  <div class="col-lg-8">
-                    <b style="font-size: 16px; ">Jadwal IPSRS</b>
+                  <div class="col-lg-7">
+                    <b style="font-size: 14px; ">Jadwal IPSRS</b>
 
                     @if ($url_jadwal)
                       <iframe width="100%" height="400px" src="{{ @$url_jadwal }}" title="W3Schools Free Online Web Tutorials"></iframe>
@@ -67,10 +78,13 @@
 @push('scripts')
 <script>
   setInterval(function () {
-      ambil_perbaikan();    
+      ambil_perbaikan();
+      permintaan_pending();    
     }
     , 100000);
 ambil_perbaikan();
+permintaan_pending();
+
 function ambil_perbaikan(){
   $.ajax({
       url:"{{ url('perbaikan_hariini') }}",
@@ -78,6 +92,20 @@ function ambil_perbaikan(){
       dataType: "HTML",
       success:function(res){
           $("#perbaikan").html(res);
+      },
+      error:function(){
+        // $.notify({message: 'Terjadi kesalahan'},{type: 'danger'});
+      }
+  })
+}
+
+function permintaan_pending(){
+  $.ajax({
+      url:"{{ url('permintaan-pending') }}",
+      method: "GET",
+      dataType: "HTML",
+      success:function(res){
+          $("#permintaan-pending").html(res);
       },
       error:function(){
         // $.notify({message: 'Terjadi kesalahan'},{type: 'danger'});

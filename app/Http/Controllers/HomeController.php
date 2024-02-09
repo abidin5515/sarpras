@@ -32,4 +32,10 @@ class HomeController extends Controller
     	$data = Pekerjaan::where('tanggal', date('Y-m-d'))->get();
     	return view('home.perbaikan_hariini', compact('data'));
     }
+
+        public function permintaan_pending()
+    {
+        $data = Permintaan::where('status','pending')->get();
+        return view('home.permintaan_pending', compact('data'));
+    }
 }

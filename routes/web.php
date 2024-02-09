@@ -58,6 +58,7 @@ Route::group(['middleware' => 'AuthUser'], function () {
 
     Route::get('/', 'HomeController@index');
     Route::get('/perbaikan_hariini', 'HomeController@perbaikan_hariini');
+    Route::get('/permintaan-pending', 'HomeController@permintaan_pending');
     Route::get("filter-type/{tipe}","DataAlkesController@filter");
 
 
