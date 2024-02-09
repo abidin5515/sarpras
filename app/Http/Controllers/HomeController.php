@@ -35,7 +35,7 @@ class HomeController extends Controller
 
         public function permintaan_pending()
     {
-        $data = Permintaan::where('status','pending')->get();
+        @$data = Permintaan::where('status','pending')->get();
         return view('home.permintaan_pending', compact('data'));
     }
 }
