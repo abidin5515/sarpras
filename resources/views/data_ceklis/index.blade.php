@@ -64,71 +64,108 @@
   
  <hr>                 
  --}}
+
+
+ <div class="row"> 
+
+  <div class="col-md-4">
+      <table style="margin-top: 10px" class="" style="font-size: 11px;" width="100%">
+        <thead>
+          <th>Shift 1</th>
+
+        </thead>
+
+        <tbody>
+            <tr>
+              <td>
+                <table width="100%">
+                    <tr>
+                      <th>Ceklis</th>
+                      <th>Jumlah</th>
+                      <th>Catatan</th>
+                    </tr>
+                  @foreach(@$master_ceklis as $m)
+                    <tr>
+                      <td>{{ @$m->nama_ceklis }}</td>
+                      <td><input size="8" data-shift="1" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][1]['jumlah'] }}"></td>
+                      <td><input data-shift="1" data-id="{{ @$m->id }}" class="edit" size="15" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][1]['keterangan'] }}"></td>
+                    </tr>
+                  @endforeach
+                </table>
+              </td>
+
+            </tr>
+        </tbody>
+      </table>
+  </div>
+
+  <div class="col-md-4">
+    <table style="margin-top: 10px" class="" style="font-size: 11px;" width="100%">
+        <thead>
+          <th>Shift 2</th>
+
+        </thead>
+
+        <tbody>
+            <tr>
+              <td>
+                <table width="100%">
+                    <tr>
+                      <th>Ceklis</th>
+                      <th>Jumlah</th>
+                      <th>Catatan</th>
+                    </tr>
+                  @foreach(@$master_ceklis as $m)
+                    <tr>
+                      <td>{{ @$m->nama_ceklis }}</td>
+                      <td><input size="8" data-shift="2" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][2]['jumlah'] }}"></td>
+                      <td><input data-shift="2" data-id="{{ @$m->id }}" class="edit" size="15" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][2]['keterangan'] }}"></td>
+                    </tr>
+                  @endforeach
+                </table>
+              </td>
+
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-4">
+    <table style="margin-top: 10px" class="" style="font-size: 11px;" width="100%">
+        <thead>
+          <th>Shift 3</th>
+
+        </thead>
+
+        <tbody>
+            <tr>
+              <td>
+                <table width="100%">
+                    <tr>
+                      <th>Ceklis</th>
+                      <th>Jumlah</th>
+                      <th>Catatan</th>
+                    </tr>
+                  @foreach(@$master_ceklis as $m)
+                    <tr>
+                      <td>{{ @$m->nama_ceklis }}</td>
+                      <td><input size="8" data-shift="3" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][3]['jumlah'] }}"></td>
+                      <td><input data-shift="3" data-id="{{ @$m->id }}" class="edit" size="15" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][3]['keterangan'] }}"></td>
+                    </tr>
+                  @endforeach
+                </table>
+              </td>
+
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+ </div>
+
+
  <div class="table table-responsive">
-<table class="" style="font-size: 11px;" width="100%">
-  <thead>
-    <th>Shift 1</th>
-    <th>Shift 2</th>
-    <th>Shift 3</th>
 
-  </thead>
-
-  <tbody>
-      <tr>
-        <td>
-          <table width="100%">
-              <tr>
-                <th>Ceklis</th>
-                <th>Jumlah</th>
-                <th>Catatan</th>
-              </tr>
-            @foreach(@$master_ceklis as $m)
-              <tr>
-                <td>{{ @$m->nama_ceklis }}</td>
-                <td><input size="5" data-shift="1" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][1]['jumlah'] }}"></td>
-                <td><input data-shift="1" data-id="{{ @$m->id }}" class="edit" size="8" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][1]['keterangan'] }}"></td>
-              </tr>
-            @endforeach
-          </table>
-        </td>
-
-        <td>
-          <table width="100%">
-              <tr>
-                <th>Ceklis</th>
-                <th>Jumlah</th>
-                <th>Catatan</th>
-              </tr>
-            @foreach(@$master_ceklis as $m)
-              <tr>
-                <td>{{ @$m->nama_ceklis }}</td>
-                <td><input size="5" data-shift="2" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][2]['jumlah'] }}"></td>
-                <td><input data-shift="2" data-id="{{ @$m->id }}" class="edit" size="8" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][2]['keterangan'] }}"></td>
-              </tr>
-            @endforeach
-          </table>
-        </td>
-
-        <td>
-          <table width="100%">
-              <tr>
-                <th>Ceklis</th>
-                <th>Jumlah</th>
-                <th>Catatan</th>
-              </tr>
-            @foreach(@$master_ceklis as $m)
-             <tr>
-                <td>{{ @$m->nama_ceklis }}</td>
-                <td><input size="5" data-shift="3" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][3]['jumlah'] }}"></td>
-                <td><input data-shift="3" data-id="{{ @$m->id }}" class="edit" size="8" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][3]['keterangan'] }}"></td>
-              </tr>
-            @endforeach
-          </table>
-        </td>
-
-      </tr>
-  </tbody>
-</table>
 </div>
             </div>
             <!-- /.card-body -->

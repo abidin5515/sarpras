@@ -87,7 +87,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-
+    <br>
     <!-- konten -->
     @yield('content')
 
@@ -276,7 +276,7 @@
     data:{"_token": "{{ csrf_token() }}", val:val, tipe:tipe, shif:shif, id_master_ceklis, tanggal:tanggal},
     success:function(data){
         if(data.success){
-          // swal("Success!", data.msg, "success");
+          // $.notify("Access granted", "success");
         }else {
           // swal("Gagal!", data.msg, "danger");
         }
