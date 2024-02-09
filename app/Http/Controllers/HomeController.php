@@ -12,6 +12,7 @@ use PDF;
 use App\Checklist;
 use App\UploadJadwal;
 use App\Pekerjaan;
+use App\Permintaan;
 
 class HomeController extends Controller
 {
