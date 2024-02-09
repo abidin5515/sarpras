@@ -250,6 +250,16 @@ Route::resource("/user","UserController");
 
 Route::get('setting', 'SettingController@setting');
 Route::delete('setting/reset', 'SettingController@reset');
+
+Route::post("/data_ceklis/store_update","DataCeklisController@store_update");
+Route::get("/data_ceklis/json","DataCeklisController@json")->name("data_ceklis.json");
+Route::resource("/data_ceklis","DataCeklisController");
+
+
+
+	Route::get("/master_ceklis/json","MasterCeklisController@json")->name("master_ceklis.json");
+	Route::resource("/master_ceklis","MasterCeklisController");
+
 });
 
 

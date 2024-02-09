@@ -69,6 +69,10 @@
   .table td, .table th {
     border : 1px solid #cfd2d4;
   }
+
+  .notifyjs-corner {
+    margin-top: 100px !important;
+}
   </style>
 <div class="wrapper">
 
@@ -258,6 +262,27 @@
         // console.log("dataMaster");
         // console.log(dataMaster);
     });
+
+
+      $(document).on('change', '.edit', function(){
+  var val = $(this).val();
+  var tipe = $(this).attr('data-tipe');
+  var shif = $(this).attr('data-shift');
+  var id_master_ceklis = $(this).attr('data-id');
+  var tanggal = $("#filter-tanggal").val();
+  $.ajax({
+    method:"post",
+    url:"{{ url('data_ceklis/store_update') }}",
+    data:{"_token": "{{ csrf_token() }}", val:val, tipe:tipe, shif:shif, id_master_ceklis, tanggal:tanggal},
+    success:function(data){
+        if(data.success){
+          // swal("Success!", data.msg, "success");
+        }else {
+          // swal("Gagal!", data.msg, "danger");
+        }
+    }
+  });
+});
 
   </script>
 

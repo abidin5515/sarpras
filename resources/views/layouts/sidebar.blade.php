@@ -277,6 +277,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ url('data_ceklis') }}" class="nav-link {{sidebar_active('data_ceklis')}} ">
+              <i class="nav-icon fas fa-pen-alt"></i>
+              <p>
+                Input Ceklis
+              </p>
+            </a>
+          </li>
+
 
            <li class="nav-item">
             <a href="{{ url('permintaan') }}" class="nav-link {{sidebar_active('permintaan')}} ">
@@ -331,7 +340,8 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-          <li class="nav-item">
+              
+              <li class="nav-item">
                 <a href="{{ url('teknisi') }}" class="nav-link {{sidebar_active('teknisi')}} ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Master Teknisi</p>
@@ -358,6 +368,13 @@
             <a href="{{ url('master-barang') }}" class="nav-link {{sidebar_active('master-barang')}} ">
               <i class="far fa-circle nav-icon"></i>
               <p>Master Barang</p>
+            </a>
+          </li> 
+
+          <li class="nav-item">
+            <a href="{{ url('master_ceklis') }}" class="nav-link {{sidebar_active('master_ceklis')}} ">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Master Ceklis</p>
             </a>
           </li> 
 
