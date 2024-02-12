@@ -23,7 +23,7 @@
             <div class="card-header">
               <h3 class="card-title">Catatan Perbaikan</h3>
               <div class="card-tools">
-                <a href="{{ route('catatan-pemeliharaan.create') }}" class="btn btn-primary">+ TAMBAH</a>
+                {{-- <a href="{{ route('catatan-pemeliharaan.create') }}" class="btn btn-primary">+ TAMBAH</a> --}}
 
                 <input type="hidden" name="" class="data-src" value="{{ url('catatan-pemeliharaan/print-filter?') }}">
                 {{-- <button class="btn btn-danger create-btn btn-print" data-iframe="true" data-title="Cetak Catatan Pemeliharaan" data-src="{{ url('catatan-pemeliharaan/print-filter?pdf=true&') }}" data-lg="true" data-actions="false" data-save="false"><i class="fas fa-print" ></i> EXPORT PDF</button> --}}
