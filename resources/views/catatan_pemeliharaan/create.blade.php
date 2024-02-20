@@ -32,11 +32,11 @@
                             <div class="alert alert-warning">
                             <b style="font-size: 14px">Mengerjakan Permintaan : </b>
                              <table class="bg-warning" width="300px">
-                                 <tr>
+                                 {{-- <tr>
                                      <th>Ruang </th>
                                      <td>:</td>
                                      <td>{{ @$permintaan->ruangan->nama }}</td>
-                                 </tr>
+                                 </tr> --}}
 
                                  <tr>
                                      <th>Permasalahan </th>
@@ -44,11 +44,11 @@
                                      <td>{{ @$permintaan->masalah }}</td>
                                  </tr>
 
-                                 <tr>
+                                 {{-- <tr>
                                      <th>Lantai </th>
                                      <td>:</td>
                                      <td>{{ @$permintaan->lantai }}</td>
-                                 </tr>
+                                 </tr> --}}
                              </table> 
                          </div>
                         </div>   

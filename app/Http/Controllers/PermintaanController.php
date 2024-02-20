@@ -102,7 +102,7 @@ class PermintaanController extends Controller
     $validatedData = Validator::make($request->all(), [ // <---
         'masalah' => 'required',
         // 'lokasi' => 'required',
-        'lantai' => 'required',
+        // 'lantai' => 'required',
         // 'pengirim' => 'required',
         // 'tanggal' => 'required',
       ]);

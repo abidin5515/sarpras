@@ -38,11 +38,11 @@
                                      <td>{{ @$data->permintaan->masalah }}</td>
                                  </tr>
 
-                                 <tr>
+                                 {{-- <tr>
                                      <th>Lantai </th>
                                      <td>:</td>
                                      <td>{{ @$data->permintaan->lantai }}</td>
-                                 </tr>
+                                 </tr> --}}
                              </table> 
                          </div>
                         </div>   

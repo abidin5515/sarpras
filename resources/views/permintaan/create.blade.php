@@ -90,7 +90,7 @@
             @enderror
         </div>   --}}
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label>Ruangan:</label>
           <select class="form-control" name="id_ruang" id="id_ruang">
             <option value="">-- Pilih Ruang --</option>
@@ -100,7 +100,7 @@
               @endforeach
             @endif
           </select>
-        </div>
+        </div> --}}
 
         <div class="form-group">
           <label>Uraian Masalah:</label>
@@ -125,7 +125,7 @@
           
         </div> --}}
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label>Lantai:</label>
           <select class="form-control" name="lantai">
             <option value="">-- Pilih Lantai --</option>
@@ -137,7 +137,7 @@
             @error('lantai')
               <span class="error">{{ $errors->first('lantai') }}</span>
             @enderror
-        </div>
+        </div> --}}
 
         <div class="row">
           <div class="col-6">

@@ -4,7 +4,7 @@
 	<table class="table" style="color: #000">
 		<tr>
 			<th>Waktu Input</th>
-			<th>Ruang</th>
+			{{-- <th>Ruang</th> --}}
 			<th>Masalah</th>
 			<th>Foto</th>
 			<th>Aksi</th>
@@ -12,7 +12,7 @@
 		@foreach ($data as $d)
 			<tr>
 				<td valign="top">{{ date('d-m-Y H:i', strtotime($d->created_at)) }}</td>
-				<td valign="top">{{ @$d->ruangan->nama }}</td>
+				{{-- <td valign="top">{{ @$d->ruangan->nama }}</td> --}}
 				<td valign="top">{{ @$d->masalah }}</td>
 				<td valign="top">
 					@if ($d->foto)
