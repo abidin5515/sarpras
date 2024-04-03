@@ -32,10 +32,10 @@
               <h3 class="card-title data_ceklis_title">Data Ceklis</h3>
               <div class="card-tools">
 
-                <form class="form-filter" action="{{ url('data_ceklis') }}" method="get">
+                {{-- <form class="form-filter" action="{{ url('data_ceklis') }}" method="get">
                    <label>Tanggal</label>
                    <input type="date" name="tanggal" id="filter-tanggal" value="{{ @$tanggal }}"> 
-                </form>
+                </form> --}}
 
               </div>
 
@@ -65,13 +65,27 @@
  <hr>                 
  --}}
 
-
+ <div class="row">
+  <form style="margin-right: 10px" class="form-filter" action="{{ url('data_ceklis') }}" method="get">
+    <label>Tanggal</label>
+    <input class="form-control" type="date" name="tanggal" id="filter-tanggal" value="{{ @$tanggal }}"> 
+ </form>
+  <form class="form-cari-shift" action="" method="get">
+    <label>Pilih Shift</label>
+    <select name="shift" id="pilih-shift" class="form-control">
+      <option value="">-- Pilih Shift --</option>
+      <option value="1">Shift Pagi</option>
+      <option value="2">Shift Siang</option>
+      <option value="3">Shift Malam</option>
+    </select>
+ </form>
+</div> 
  <div class="row"> 
 
-  <div class="col-md-4">
+  <div class="col-md-6 shift-1" style="display: none">
       <table style="margin-top: 10px" class="" style="font-size: 11px;" width="100%">
         <thead>
-          <th>Shift 1</th>
+          <th>Shift Pagi</th>
 
         </thead>
 
@@ -88,7 +102,7 @@
                     <tr>
                       <td>{{ @$m->nama_ceklis }}</td>
                       <td><input size="8" data-shift="1" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][1]['jumlah'] }}"></td>
-                      <td><input data-shift="1" data-id="{{ @$m->id }}" class="edit" size="15" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][1]['keterangan'] }}"></td>
+                      <td><input data-shift="1" data-id="{{ @$m->id }}" class="edit" size="" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][1]['keterangan'] }}"></td>
                     </tr>
                   @endforeach
                 </table>
@@ -99,10 +113,10 @@
       </table>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-6 shift-2" style="display: none">
     <table style="margin-top: 10px" class="" style="font-size: 11px;" width="100%">
         <thead>
-          <th>Shift 2</th>
+          <th>Shift Siang</th>
 
         </thead>
 
@@ -119,7 +133,7 @@
                     <tr>
                       <td>{{ @$m->nama_ceklis }}</td>
                       <td><input size="8" data-shift="2" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][2]['jumlah'] }}"></td>
-                      <td><input data-shift="2" data-id="{{ @$m->id }}" class="edit" size="15" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][2]['keterangan'] }}"></td>
+                      <td><input data-shift="2" data-id="{{ @$m->id }}" class="edit" size="" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][2]['keterangan'] }}"></td>
                     </tr>
                   @endforeach
                 </table>
@@ -130,10 +144,10 @@
     </table>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-6 shift-3" style="display: none">
     <table style="margin-top: 10px" class="" style="font-size: 11px;" width="100%">
         <thead>
-          <th>Shift 3</th>
+          <th>Shift Malam</th>
 
         </thead>
 
@@ -150,7 +164,7 @@
                     <tr>
                       <td>{{ @$m->nama_ceklis }}</td>
                       <td><input size="8" data-shift="3" data-id="{{ @$m->id }}" data-tipe="jumlah" class="edit" type="text" name="" value="{{ @$datanya[$m->id][3]['jumlah'] }}"></td>
-                      <td><input data-shift="3" data-id="{{ @$m->id }}" class="edit" size="15" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][3]['keterangan'] }}"></td>
+                      <td><input data-shift="3" data-id="{{ @$m->id }}" class="edit" size="" type="text" data-tipe="keterangan" name="" value="{{ @$datanya[$m->id][3]['keterangan'] }}"></td>
                     </tr>
                   @endforeach
                 </table>
@@ -209,6 +223,26 @@ $(function() {
 
 $(document).on('change', '#filter-tanggal', function(){
   $(".form-filter").submit();
+});
+
+$(document).on('change', '#pilih-shift', function(){
+   var valuenya = $(this).val();
+   var target = '.shift-'+valuenya;
+   if(valuenya == '1'){
+    $(target).show();
+    $('.shift-2').hide();
+    $('.shift-3').hide();
+  }
+  if(valuenya == '2'){
+    $(target).show();
+    $('.shift-1').hide();
+    $('.shift-3').hide();
+  }
+  if(valuenya == '3'){
+    $(target).show();
+    $('.shift-1').hide();
+    $('.shift-2').hide();
+  }
 });
 
 
