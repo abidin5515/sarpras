@@ -214,7 +214,7 @@ function KonDecRomawi($angka)
 function ambil_teknisi($id){
     // return $id;
     // exit();
-    return $nama = App\Teknisi::find($id)->nama;
+    return @$nama = App\Teknisi::find($id)->nama;
 }
 
 function makekode($master_barang_id){

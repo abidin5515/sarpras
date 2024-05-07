@@ -286,6 +286,14 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ url('penggunaan_genset') }}" class="nav-link {{sidebar_active('penggunaan_genset')}} ">
+              <i class="nav-icon fas fa-pen-alt"></i>
+              <p>
+                Form Penggunaan Genset
+              </p>
+            </a>
+          </li> 
 
            <li class="nav-item">
             <a href="{{ url('permintaan') }}" class="nav-link {{sidebar_active('permintaan')}} ">

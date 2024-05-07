@@ -33,6 +33,10 @@ Route::get("/show_jadwal_ipsrs/","UploadJadwalController@show_jadwal_ipsrs");
 
 Route::group(['middleware' => 'AuthUser'], function () {
 
+	Route::get("/penggunaan_genset/print-filter","PenggunaanGensetController@printFilter")->name('penggunaan_genset.print-filter');
+	Route::get("/penggunaan_genset/json","PenggunaanGensetController@json")->name("penggunaan_genset.json");
+	Route::resource("/penggunaan_genset","PenggunaanGensetController");
+
 	Route::get("/pengadaan-excel","PengadaanController@excel");
 	Route::get("/pengadaan/json","PengadaanController@json")->name("pengadaan.json");
 	Route::resource("/pengadaan","PengadaanController");

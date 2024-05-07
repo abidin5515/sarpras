@@ -16,7 +16,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Tambah Catatan Perbaikan</h3> 
+              <h3 class="card-title">Tambah Inventaris</h3> 
               <div class="card-tools">
                 <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="fas fa-arrow-left" ></i> KEMBALI</a>
               </div>

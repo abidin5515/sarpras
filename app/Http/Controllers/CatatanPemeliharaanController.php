@@ -61,7 +61,7 @@ class CatatanPemeliharaanController extends Controller
           //   $data->where(['pekerjaan.tanggal'=>$tanggal]);
           // }
 
-           if (!empty($dari_tanggal)) {
+          if (!empty($dari_tanggal)) {
             $data->whereDate('pekerjaan.tanggal', '>=', $dari_tanggal);
           }
 
