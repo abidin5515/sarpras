@@ -26,6 +26,7 @@
 <center>
 	<h4 style="margin: 0">FORM PENGGUNAAN GENERATOR SET</h4>
 	<h3 style="margin: 0">RS PKU MUHAMMADIYAH PAMOTAN</h3>
+    <span style="font-size: 11px;">Periode : {{ date('d-m-Y', strtotime(@$_GET['dari_tanggal'])) }} s/d {{ date('d-m-Y', strtotime(@$_GET['sampai_tanggal'])) }}</span>
 </center>
 
 
