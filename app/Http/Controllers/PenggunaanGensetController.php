@@ -200,4 +200,25 @@ public function printFilter(Request $request){
     
   }
 
+  public function destroy($id,Request $request)
+    {
+        $table = PenggunaanGenset::find($id);
+        $delete = $table->delete();
+         if ($delete) {
+        $success= true;
+          $msg = 'Data Berhasil Dihapus';
+
+        }
+        else {
+
+          $msg = 'Data Gagal Dihapus';
+            $success = false;
+        }
+
+        return [
+          'success'=>$success,
+          'msg'=>$msg
+        ];
+    }
+
 }
