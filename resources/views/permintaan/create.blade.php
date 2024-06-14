@@ -90,7 +90,7 @@
             @enderror
         </div>   --}}
 
-        {{-- <div class="form-group">
+        <div class="form-group">
           <label>Ruangan:</label>
           <select class="form-control" name="id_ruang" id="id_ruang">
             <option value="">-- Pilih Ruang --</option>
@@ -100,7 +100,7 @@
               @endforeach
             @endif
           </select>
-        </div> --}}
+        </div>
 
         <div class="form-group">
           <label>Uraian Masalah:</label>
@@ -119,7 +119,7 @@
             @enderror
         </div>
 
-        {{-- <div class="form-group">
+       {{--  <div class="form-group">
           <label>Lokasi:</label>
           <input type="text" name="lokasi" class="form-control" placeholder="lokasi">
           
