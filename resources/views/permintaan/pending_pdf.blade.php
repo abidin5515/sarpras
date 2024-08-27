@@ -19,7 +19,7 @@
         <br>
         <table width="100%" cellspacing="0" border="1" cellpadding="2">
             <tr>
-                <td>Tanggal</td>
+                <td width="15%">Tanggal</td>
                 <td>Ruang</td>
                 <td>Masalah</td>
                 <td>Foto</td>
