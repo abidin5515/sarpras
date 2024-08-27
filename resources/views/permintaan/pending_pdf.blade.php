@@ -19,25 +19,25 @@
         <br>
         <table width="100%" cellspacing="0" border="1" cellpadding="2">
             <tr>
-                <td width="15%">Tanggal</td>
-                <td>Ruang</td>
-                <td>Masalah</td>
-                <td>Foto</td>
-                <td>Status</td>
+                <td valign="top" width="15%">Tanggal</td>
+                <td valign="top">Ruang</td>
+                <td valign="top">Masalah</td>
+                <td valign="top">Foto</td>
+                <td valign="top">Status</td>
             </tr>
 
             @if (@$data!=null)
             @foreach ($data as $d)
                 <tr>
-                    <td>{{ date('d-m-Y H:i', strtotime(@$d->created_at)) }}</td>
-                    <td>{{ @$d->ruangan->nama }}</td>
-                    <td>{{ @$d->masalah }}</td>
-                    <td>
+                    <td valign="top">{{ date('d-m-Y H:i', strtotime(@$d->created_at)) }}</td>
+                    <td valign="top">{{ @$d->ruangan->nama }}</td>
+                    <td valign="top">{{ @$d->masalah }}</td>
+                    <td valign="top">
                         @if (@$d->foto)
                             <img src="{{ @$d->foto }}" width="100px" alt="">
                         @endif
                     </td>
-                    <td>{{ @$d->status }}</td>
+                    <td valign="top">{{ @$d->status }}</td>
                 </tr>
             @endforeach
                 
