@@ -295,6 +295,7 @@ class PermintaanController extends Controller
       $data = Permintaan::where('status', 'pending')
               ->whereDate('created_at', '>=', $dari_tanggal)
               ->whereDate('created_at', '<=', $sampai_tanggal)
+              ->orderBy('created_at', 'DESC')
               ->get();
               $nama_file = 'Permintaan Pending '.date('d-m-Y', strtotime($dari_tanggal)).' sd '.date('d-m-Y', strtotime($sampai_tanggal)).'.pdf';
               $pdf = PDF::loadView('permintaan.pending_pdf', compact('data'));

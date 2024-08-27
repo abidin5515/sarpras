@@ -9,7 +9,12 @@
     </head>
     <body>
         <center>
-            <h3>Data Permintaan Pending</h3>
+            <h3 style="font-size: 18px;">Data Permintaan Pending</h3>
+            @php
+                $dari_tanggal = $_GET['dari_tanggal'];
+                $sampai_tanggal = $_GET['sampai_tanggal'];
+            @endphp
+            Periode {{ date('d-m-Y', strtotime($dari_tanggal)).' sd '.date('d-m-Y', strtotime($sampai_tanggal)) }}
         </center>
         <br>
         <table width="100%" cellspacing="0" border="1" cellpadding="2">
