@@ -265,4 +265,40 @@ class PermintaanController extends Controller
         });
     }
 
+
+    public function excel_pending(Request $request)
+    {
+      $dari_tanggal = $request->dari_tanggal;
+      $sampai_tanggal = $request->sampai_tanggal;
+      $data = Permintaan::where('status', 'pending')
+              ->whereDate('created_at', '>=', $dari_tanggal)
+              ->whereDate('created_at', '<=', $sampai_tanggal)
+              ->get();
+              $nama_file = 'Permintaan Pending '.date('d-m-Y', strtotime($dari_tanggal)).' sd '.date('d-m-Y', strtotime($sampai_tanggal)).'.xlsx';
+              return (new FastExcel($data))->download($nama_file, function ($d) {
+
+            return [
+              'Ruang'=> @$d->ruangan->nama,
+              'Masalah' => $d->masalah,
+              'Lantai' => $d->lantai,
+              'Tanggal' => date('d-m-Y H:i', strtotime($d->created_at)),
+              'Status' => $d->status,
+
+            ];
+        });
+    }
+
+    public function pdf_pending(Request $request)
+    {
+      $dari_tanggal = $request->dari_tanggal;
+      $sampai_tanggal = $request->sampai_tanggal;
+      $data = Permintaan::where('status', 'pending')
+              ->whereDate('created_at', '>=', $dari_tanggal)
+              ->whereDate('created_at', '<=', $sampai_tanggal)
+              ->get();
+              $nama_file = 'Permintaan Pending '.date('d-m-Y', strtotime($dari_tanggal)).' sd '.date('d-m-Y', strtotime($sampai_tanggal)).'.pdf';
+              $pdf = PDF::loadView('permintaan.pending_pdf', compact('data'));
+              return $pdf->stream($nama_file);
+    }
+
 }

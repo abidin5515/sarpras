@@ -30,6 +30,8 @@
             <div class="card-header">
               <h3 class="card-title">Permintaan Pending</h3>
               <div class="card-tools">
+                <a class="btn btn-success text-white print-excel"><i class="fas fa-file-excel" ></i> EXPORT EXCEL</a>
+                <a class="btn btn-danger text-white print-pdf"><i class="fas fa-file-pdf" ></i> EXPORT PDF</a>
                 {{-- <a href="{{ route('catatan-pemeliharaan.create') }}" class="btn btn-primary">+ TAMBAH</a> --}}
 
                 {{-- <form style="margin-bottom: 6px;" class="form-filter" id="form-filter" onsubmit="return false">
@@ -44,9 +46,8 @@
                 </form> --}}
 
                 {{-- <input type="hidden" name="" class="data-src" value="{{ url('catatan-pemeliharaan/print-filter?') }}"> --}}
-             {{--    <button class="btn btn-danger create-btn btn-print" data-iframe="true" data-title="Cetak Catatan Pemeliharaan" data-src="{{ url('catatan-pemeliharaan/print-filter?pdf=true&') }}" data-lg="true" data-actions="false" data-save="false"><i class="fas fa-print" ></i> EXPORT PDF</button>
-
-                <a class="btn btn-success btn-print" data-title="Cetak Catatan Pemeliharaan" href="{{ url('catatan-pemeliharaan/print-filter?pdf=false&') }}" ><i class="fas fa-file-excel" ></i> EXPORT EXCEL</a> --}}
+             {{--    <button class="btn btn-danger create-btn btn-print" data-iframe="true" data-title="Cetak Catatan Pemeliharaan" data-src="{{ url('catatan-pemeliharaan/print-filter?pdf=true&') }}" data-lg="true" data-actions="false" data-save="false"><i class="fas fa-print" ></i> EXPORT PDF</button>--}}
+                {{-- <a class="btn btn-success btn-print" data-title="Cetak Catatan Pemeliharaan" href="{{ url('catatan-pemeliharaan/print-filter?pdf=false&') }}" ><i class="fas fa-file-excel" ></i> EXPORT EXCEL</a>  --}}
               </div>
             </div>
             <!-- /.card-header -->
@@ -200,11 +201,27 @@ $(document).on('click', '.btn-reset', function() {
     load();
 });
 
-$(document).ready(function() {
-  setInterval(function() {
-    load();
-  }, 60000);
-});
+// $(document).ready(function() {
+//   setInterval(function() {
+//     load();
+//   }, 60000);
+// });
+
+
+    $(document).on('click', '.print-excel', function(){
+        var dari_tanggal = $('#dari_tanggal').val();
+        var sampai_tanggal = $('#sampai_tanggal').val();
+        var url = '{{ url('excel-permintaan-pending?dari_tanggal=') }}'+dari_tanggal+'&sampai_tanggal='+sampai_tanggal;
+        window.open(url);
+    });
+
+    $(document).on('click', '.print-pdf', function(){
+        var dari_tanggal = $('#dari_tanggal').val();
+        var sampai_tanggal = $('#sampai_tanggal').val();
+        var url = '{{ url('pdf-permintaan-pending?dari_tanggal=') }}'+dari_tanggal+'&sampai_tanggal='+sampai_tanggal;
+        window.open(url);
+    });
+
 </script>
 @endpush
 

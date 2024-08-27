@@ -56,6 +56,9 @@ Route::group(['middleware' => 'AuthUser'], function () {
 	Route::get("/permintaan_selesai/json","PermintaanController@selesai_json")->name('permintaan_selesai.json');
 	Route::get("/excel-permintaan-selesai","PermintaanController@excel_selesai");
 
+	Route::get("/pdf-permintaan-pending","PermintaanController@pdf_pending");
+	Route::get("/excel-permintaan-pending","PermintaanController@excel_pending");
+
 	Route::get("/permintaan/view_gambar","PermintaanController@view_gambar");
 	Route::get("/permintaan/json","PermintaanController@json")->name('permintaan.json');
 	Route::resource("/permintaan","PermintaanController");
