@@ -24,7 +24,7 @@
             @if (@$data!=null)
             @foreach ($data as $d)
                 <tr>
-                    <td>{{ @$d->tanggal }}</td>
+                    <td>{{ date('d-m-Y H:i', strtotime(@$d->created_at)) }}</td>
                     <td>{{ @$d->ruangan->nama }}</td>
                     <td>{{ @$d->masalah }}</td>
                     <td>
