@@ -19,6 +19,7 @@
         <br>
         <table width="100%" cellspacing="0" border="1" cellpadding="2">
             <tr>
+                <td valign="top">No</td>
                 <td valign="top" width="15%">Tanggal</td>
                 <td valign="top">Ruang</td>
                 <td valign="top">Masalah</td>
@@ -27,8 +28,12 @@
             </tr>
 
             @if (@$data!=null)
+            @php
+                $no =1;
+            @endphp
             @foreach ($data as $d)
                 <tr>
+                    <td valign="top" width="5%">{{ @$no++ }}.</td>
                     <td valign="top">{{ date('d-m-Y H:i', strtotime(@$d->created_at)) }}</td>
                     <td valign="top">{{ @$d->ruangan->nama }}</td>
                     <td valign="top">{{ @$d->masalah }}</td>
