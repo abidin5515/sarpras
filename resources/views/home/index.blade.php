@@ -87,7 +87,7 @@ permintaan_pending();
 
 function ambil_perbaikan(){
   $.ajax({
-      url:"{{ url('perbaikan_hariini') }}",
+      url:"perbaikan_hariini",
       method: "GET",
       dataType: "HTML",
       success:function(res){
@@ -101,7 +101,7 @@ function ambil_perbaikan(){
 
 function permintaan_pending(){
   $.ajax({
-      url:"{{ url('permintaan-pending') }}",
+      url:"permintaan-pending'",
       method: "GET",
       dataType: "HTML",
       success:function(res){

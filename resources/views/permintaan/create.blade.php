@@ -199,7 +199,7 @@
             $(".submit").attr('disabled','disabled');
             // event.preventDefault();
             $.ajax({
-                url:"{{ url('/minta/store') }}",
+                url:"minta/store",
                 method: "POST",
                 data: form_data,
                 dataType: "JSON",
