@@ -101,7 +101,7 @@ function ambil_perbaikan(){
 
 function permintaan_pending(){
   $.ajax({
-      url:"permintaan-pending'",
+      url:"permintaan-pending",
       method: "GET",
       dataType: "HTML",
       success:function(res){
