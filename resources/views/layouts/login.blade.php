@@ -129,7 +129,7 @@
             $(".submit").attr('disabled','disabled');
             // event.preventDefault();
             $.ajax({
-                url:"{{ url('masuk') }}",
+                url:"masuk",
                 method: "POST",
                 data: data,
                 dataType: "JSON",
