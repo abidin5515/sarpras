@@ -514,7 +514,7 @@ class CatatanPemeliharaanController extends Controller
       $sampai_tanggal = $request->sampai_tanggal;
       $pdf = $request->pdf;
       $data = Pekerjaan::whereDate('tanggal', '>=', $dari_tanggal)
-              ->whereDate('tanggal', '<=', $sampai_tanggal)->get();  
+              ->whereDate('tanggal', '<=', $sampai_tanggal)->orderBy('tanggal', 'ASC')->get();  
       
 
       // if ($data->id_teknisi) {
