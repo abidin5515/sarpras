@@ -674,4 +674,49 @@ class CatatanPemeliharaanController extends Controller
 
       return view('catatan_pemeliharaan.daftar_file_kalibrasi',compact('kalibrasi'));
     }
+
+
+    // public function laporan(){
+    //   return view('catatan_pemeliharaan.laporan');
+    // }
+
+
+
+   public function laporan(Request $request)
+{
+    $mode = $request->get('mode', 'harian');
+
+    if ($mode == 'bulanan') {
+        $bulan = $request->get('bulan', date('m'));
+        $tahun = $request->get('tahun', date('Y'));
+
+         $bulan = $request->get('bulan', date('m'));
+        $tahun = $request->get('tahun', date('Y'));
+
+        $laporan = Pekerjaan::whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->get();
+
+
+    } else {
+        $from = $request->from;
+        $to   = $request->to;
+        // echo $from;
+        // return;
+       $laporan = Pekerjaan::selectRaw('tanggal, COUNT(*) as jumlah')
+    ->whereRaw('date(tanggal) >= ? and date(tanggal) <= ?', [$from, $to])
+    ->groupBy('tanggal')
+    ->orderBy('tanggal','asc')
+    ->get();
+
+    }
+
+    // print_r($laporan);
+    // return;
+    return view('catatan_pemeliharaan.laporan', compact('laporan'));
+}
+
+
+
+
 }

@@ -191,6 +191,10 @@ Route::group(['middleware' => 'AuthUser'], function () {
 
 	Route::get("/catatan-pemeliharaan/{id}/print-surat-tugas","CatatanPemeliharaanController@printSuratTugas")->name('catatan-pemeliharaan.printSuratTugas');
 
+	Route::get("/proses_laporan","CatatanPemeliharaanController@laporan")->name('catatan-pemeliharaan.proseslaporan');
+
+
+Route::get("/laporan_catatan_perbaikan","CatatanPemeliharaanController@laporan")->name('catatan-pemeliharaan.laporan');
 
 
 
