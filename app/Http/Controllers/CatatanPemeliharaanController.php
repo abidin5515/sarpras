@@ -532,7 +532,7 @@ class CatatanPemeliharaanController extends Controller
         $pdf = PDF::loadView('catatan_pemeliharaan.print-filter', compact('data'));
         $pdf->setPaper('A4', 'portrait');
         $nama_file = 'Catatan Perbaikan '.date('d-m-Y', strtotime($dari_tanggal)).' sd '.date('d-m-Y', strtotime($sampai_tanggal)).'.pdf';
-        return $pdf->download($nama_file);
+        return $pdf->stream($nama_file);
       }else {
         $nama_file = 'Catatan Perbaikan '.date('d-m-Y', strtotime($dari_tanggal)).' sd '.date('d-m-Y', strtotime($sampai_tanggal)).'.xlsx';
         return (new FastExcel($data))->download($nama_file, function ($d) {

@@ -39,7 +39,7 @@
 			<th>Status</th>
 			<th>Keterangan</th>
 			<th>Biaya</th>
-			{{-- <th>Foto</th> --}}
+			<th>Foto</th>
 			<th>Teknisi</th>
 		</tr>
 		
@@ -57,7 +57,7 @@
 					<td valign="top">{{@$r->status}}</td>
 					<td valign="top">{{@$r->keterangan}}</td>
 					<td valign="top">{{@$r->biaya}}</td>
-					{{-- <td valign="top"><img style="margin: 0" width="100" src="{{ asset(@$r->foto) }}"></td>	 --}}
+					<td valign="top"><img style="margin: 0" width="100" src="{{ asset(@$r->foto) }}"></td>	
 					<td valign="top">
 						@php
 							if ($r->id_teknisi) {
