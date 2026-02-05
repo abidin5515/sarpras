@@ -278,6 +278,15 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{ url('kegiatan-sarpras') }}" class="nav-link {{sidebar_active('kegiatan-sarpras')}} ">
+              <i class="nav-icon fas fa-tools"></i>
+              <p>
+                Kegiatan Sarpras <span class="badge badge-info">NEW</span>
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ url('data_ceklis') }}" class="nav-link {{sidebar_active('data_ceklis')}} ">
               <i class="nav-icon fas fa-pen-alt"></i>
               <p>

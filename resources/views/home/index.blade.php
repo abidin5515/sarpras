@@ -24,7 +24,7 @@
             <!-- /.box-header -->
             <div class="card-body">
                 <div class="row">
-                  <div class="col-lg-5">
+                  <div class="col-lg-7">
                     <div class="col-md-12">
                       <b style="font-size: 14px; ">Permintaan Pending</b>
                     <a style="float: right;" class="btn btn-sm btn-info" href="{{ url('permintaan') }}">Selengkapnya</a>
@@ -40,18 +40,66 @@
                     </div>
 
                   </div>
-                  <div class="col-lg-7">
-                    <b style="font-size: 14px; ">Jadwal IPSRS</b>
 
-                    @if ($url_jadwal)
-                      <iframe width="100%" height="400px" src="{{ @$url_jadwal }}" title="W3Schools Free Online Web Tutorials"></iframe>
-                    @else
-                      <p class="alert alert-info">Tidak ada jadwal aktif</p>  
-                    @endif
+                  <div class="col-md-5">
+                    <div class="card shadow-sm mb-4">
+                      <div class="card-header fw-bold">
+                          Rekap Teknisi ({{ tgl_indo($dari) }} - {{ tgl_indo($sampai) }})
+                      </div>
 
-                    {{-- <img style="width: 100%" src="{{ $url_jadwal }}"> --}}
-                    
+                      <div class="card-body">
+
+                          {{-- FILTER --}}
+                          <form method="GET" class="row g-2 mb-3">
+                              <div class="col-md-4">
+                                  <input type="date" name="dari" value="{{ $dari }}" class="form-control">
+                              </div>
+                              <div class="col-md-4">
+                                  <input type="date" name="sampai" value="{{ $sampai }}" class="form-control">
+                              </div>
+                              <div class="col-md-4">
+                                  <button class="btn btn-primary w-100">
+                                      Filter
+                                  </button>
+                              </div>
+                          </form>
+
+                          {{-- TABEL --}}
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead class="table-light">
+                                      <tr>
+                                          <th class="bg-dark">Nama Teknisi</th>
+                                          <th class="bg-dark" class="text-center">Jumlah Perbaikan</th>
+                                          <th class="bg-dark" class="text-center">Jumlah Kegiatan</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      @foreach($dataTeknisi as $t)
+                                          <tr>
+                                              <td>{{ $t->nama }}</td>
+                                              <td class="text-center">{{ $t->jumlah_perbaikan }}</td>
+                                              <td class="text-center">{{ $t->jumlah_kegiatan }}</td>
+                                          </tr>
+                                      @endforeach
+
+                                      @if($dataTeknisi->isEmpty())
+                                          <tr>
+                                              <td colspan="3" class="text-center text-muted">
+                                                  Tidak ada data
+                                              </td>
+                                          </tr>
+                                      @endif
+                                  </tbody>
+                              </table>
+                          </div>
+
+                      </div>
                   </div>
+                  </div>
+
+
+                  
 
 
                   
@@ -66,6 +114,22 @@
         </div>
         <!-- /.col -->
       </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+                    <b style="font-size: 14px; ">Jadwal IPSRS</b>
+
+                    @if ($url_jadwal)
+                      <iframe width="100%" height="400px" src="{{ @$url_jadwal }}" title="W3Schools Free Online Web Tutorials"></iframe>
+                    @else
+                      <p class="alert alert-info">Tidak ada jadwal aktif</p>  
+                    @endif
+
+                    {{-- <img style="width: 100%" src="{{ $url_jadwal }}"> --}}
+                    
+                  </div>
+      </div>
+
       </div>
       <!-- /.row -->
     </section>

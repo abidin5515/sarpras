@@ -6,68 +6,48 @@ use Closure;
 
 class Auth
 {
-    public function handle($request, Closure $next)
-    {
+	public function handle($request, Closure $next)
+	{
 
-                    // $roles = $user->first()->getAbilities();
+		// $roles = $user->first()->getAbilities();
 
-        if(empty(session('userid'))){
-        	return redirect('/minta');
-        }else {
-        	// echo "string";
-        	$abilities = user()->getAbilities();
-        	// print_r($abilities);
-        	// exit();
-        	$abilitiesData = [];
+		if (empty(session('userid'))) {
+			return redirect('/minta');
+		} else {
 
-        	foreach ($abilities as $ab) {
-        		# code...
-                $explode = explode('/', $ab->name);
-                if (count($explode)>1) {
-                    # code...
-                $abilitiesData[] = $ab->name.'.indexxx';
+			// $abilities = user()->getAbilities();
 
-                }
-                else{
-                $abilitiesData[] = $ab->name.'.index';
+			// $abilitiesData = [];
 
-                }
-        	}
+			// foreach ($abilities as $ab) {
+			// 	$explode = explode('/', $ab->name);
+			// 	if (count($explode) > 1) {
+			// 		$abilitiesData[] = $ab->name . '.indexxx';
+			// 	} else {
+			// 		$abilitiesData[] = $ab->name . '.index';
+			// 	}
+			// }
 
 
-            // print_r($abilitiesData);
+			// $routeName = \Request::route()->getName();
+
+			// $method = \Route::getCurrentRoute()->getActionMethod();
 
 
-		$routeName = \Request::route()->getName();
-
-		$method = \Route::getCurrentRoute()->getActionMethod();
-
-        // print_r($routeName);
-        // exit();
+			// if (!empty($request->segment(1))) {
 
 
-        	if (!empty($request->segment(1))) {
-        		# code...
+			// 	if ($method == 'index') {
+			// 		if (!in_array($routeName, $abilitiesData)) {
 
+			// 			return abort(401);
+			// 		}
+			// 	}
+			// }
 
-        		if ($method=='index') {
-        			# code...
-        	           if (!in_array($routeName, $abilitiesData)) {
-        	           	# code...
-        	           	return abort(401);
-        	           }
-
-        		}
-               
-                // exit();
-
-                // exit();
-
-        	}
-
-        	// print_r($abilitiesData);
-        	// exit();
-        	 return $next($request);
-        }
-    }
+			// print_r($abilitiesData);
+			// exit();
+			return $next($request);
+		}
+	}
 }

@@ -225,6 +225,30 @@
     text-align: center;
                 }
 
+
+
+/* Fix warna Select2 multi */
+.select2-container--default .select2-selection--multiple {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #0d6efd; /* biru bootstrap */
+    border: none;
+    color: #fff;
+    font-size: 14px;
+}
+
+.select2-container--default .select2-selection__choice__remove {
+    color: #fff;
+    margin-right: 6px;
+}
+
+.select2-container--default .select2-selection__choice__remove:hover {
+    color: #ffc107;
+}
+
 </style>
 
 
@@ -304,6 +328,6 @@
   }
 </style>
   @stack("scripts")
-
+  @yield("js")
 </body>
 </html>
