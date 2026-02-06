@@ -88,7 +88,7 @@ class KegiatanSarprasController extends Controller
             imagecopyresampled($resize, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
             // ===== save as JPG (quality 70)
-            imagejpeg($resize, $folder . '/' . $filename, 50);
+            imagejpeg($resize, $folder . '/' . $filename, 38);
 
             // ===== cleanup memory
             imagedestroy($source);
@@ -210,7 +210,7 @@ class KegiatanSarprasController extends Controller
             imagecopyresampled($resize, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
             // save
-            imagejpeg($resize, $folder . '/' . $filename, 50);
+            imagejpeg($resize, $folder . '/' . $filename, 38);
 
             imagedestroy($source);
             imagedestroy($resize);
