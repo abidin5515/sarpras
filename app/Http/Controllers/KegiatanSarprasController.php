@@ -102,7 +102,7 @@ class KegiatanSarprasController extends Controller
             'tanggal'        => $request->tanggal,
             'jam_mulai'      => $request->jam_mulai,
             'jam_selesai'    => $request->jam_selesai,
-            'status'         => 'pending',
+            'status'         => $request->status,
             'keterangan'     => $request->keterangan,
             'foto'           => $fotoPath
         ]);
@@ -223,7 +223,8 @@ class KegiatanSarprasController extends Controller
             'tanggal'        => $request->tanggal,
             'jam_mulai'      => $request->jam_mulai,
             'jam_selesai'    => $request->jam_selesai,
-            'keterangan'     => $request->keterangan
+            'keterangan'     => $request->keterangan,
+            'status'         => $request->status,
         ]);
 
         // update teknisi
