@@ -44,7 +44,7 @@ class KegiatanSarprasController extends Controller
             'tanggal'        => 'required|date',
             'jam_mulai'      => 'required',
             'teknisi'        => 'required|array|min:1',
-            'foto'           => 'nullable|image|max:2048'
+            'foto'           => 'nullable|image|max:5048'
         ]);
 
         $fotoPath = null;
@@ -147,7 +147,7 @@ class KegiatanSarprasController extends Controller
             'tanggal'        => 'required|date',
             'jam_mulai'      => 'required',
             'teknisi'        => 'required|array|min:1',
-            'foto'           => 'nullable|image|max:2048'
+            'foto'           => 'nullable|image|max:5048'
         ]);
 
         // update foto jika ada (compress)
