@@ -129,19 +129,20 @@ $(document).ready(function () {
 
     // ===== init datatable
     const table = $('#table').DataTable({
-        order: [[2, 'desc']],
-        pageLength: 10,
-        lengthMenu: [10, 25, 50, 100],
-        language: {
-            search: "Cari:",
-            lengthMenu: "Tampilkan _MENU_ data",
-            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-            paginate: {
-                previous: "‹",
-                next: "›"
-            }
+    ordering: false,
+    pageLength: 10,
+    lengthMenu: [10, 25, 50, 100],
+    language: {
+        search: "Cari:",
+        lengthMenu: "Tampilkan _MENU_ data",
+        info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+        paginate: {
+            previous: "‹",
+            next: "›"
         }
-    });
+    }
+});
+
 
     // ===== filter button
     $('#btnFilter').on('click', function () {
