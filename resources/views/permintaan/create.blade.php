@@ -1,248 +1,445 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
-  <meta charset="utf-8"> 
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IPSRS</title>
-  <style type="text/css">
-    * {
-      /*font-size: 12px;*/
-    }
-    input {
-      font-size: 12px;
-    }
-  </style>
-  <link rel="shortcut icon" href="{{ asset('logo_rs.png') }}">
-  <!-- Google Font: Source Sans Pro -->
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
-  <!-- Font Awesome -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>IPSRS - Permintaan Perbaikan</title>
+
   <link rel="stylesheet" href="{{ url('plugins/fontawesome-free/css/all.min.css') }}">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-      <link rel="stylesheet" type="text/css" href="{{ url("/src/select2/dist/css/select2.min.css") }}">
-    <link rel="stylesheet" type="text/css" href="{{ url("/src/select2-bootstrap-theme/dist/select2-bootstrap.min.css") }}">
-  <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}">
-  <link rel="stylesheet" href="{{ url('css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/select2-bootstrap4.min.css') }}">
-  <style type="text/css">
-    .error {
-      color: red;
+  <link rel="stylesheet" type="text/css" href="{{ url('/src/select2/dist/css/select2.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('/src/select2-bootstrap-theme/dist/select2-bootstrap.min.css') }}">
+  <!-- SweetAlert2 untuk Notifikasi Ciamik -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    .star-rating i {
+      font-size: 24px;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .star-rating i.active,
+    .star-rating i:hover {
+      color: #f39c12;
+    }
+
+    .star-rating-teknisi i {
+      font-size: 18px;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .star-rating-teknisi i.active {
+      color: #f39c12;
     }
   </style>
 </head>
-<body class="hold-transition login-page" style="background-image: url({{ asset('bgn-1.png')  }}); background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;">
-  <div>
-    
 
-<div class="row" style="margin: auto; margin-top: 40px; z-index: 999999; font-size: 12px;">
-  <div class="login-logo col-md-12">
-    <img width="100" src="{{ asset('logo_rs.png') }}">
-    <br>
-    <span style="font-size: 20px;"><a style="color: #fff" href="{{ url('/') }}">IPSRS</a></span>
+<body class="bg-light">
+  <div class="container-fluid p-4">
 
-    <span style="color: #fff; font-size: 15px;display: block; margin-top: 0">Input Permintaan</span>
-    
-  </div>
-  <!-- /.login-logo -->
-  </div>
-  <div class="row" style="font-size: 12px;">
-    <div class="col-md-12">
-        <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Data yang sudah terkirim tidak bisa dihapus, masukkan data yang benar !</p>
-      <center>
-        <a href="{{ url('show_jadwal_ipsrs') }}" target="_blank" class="btn btn-info">Lihat Jadwal IPSRS</a>
-      </center>
-      <br>
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-8">
+        <h3><i class="fas fa-tools"></i> IPSRS - Form Permintaan & Riwayat</h3>
+      </div>
+      <div class="col-md-4 text-right">
+        <a href="{{ url('/login') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-lock"></i> Login Admin</a>
+      </div>
+    </div>
 
-      @if(session()->has('message'))
-          <div class="alert alert-success">
-              {{ session()->get('message') }}
+    <div class="row">
+      <!-- Form Input Permintaan -->
+      <div class="col-md-4">
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-edit"></i> Buat Permintaan</h3>
           </div>
-      @endif
+          <div class="card-body">
+            <p class="text-muted text-sm">Data yang sudah terkirim tidak dapat dihapus.</p>
 
-      @if(session()->has('error'))
-          <div class="alert alert-danger">
-              {{ session()->get('message') }}
-          </div>
-      @endif
-      <form action="{{ url('minta/store') }}" onsubmit="{{ url('minta/store') }}" method="post" id="form" enctype="multipart/form-data">
-        {{ csrf_field() }}
-         
-        {{-- <div class="form-group">
-          <label>Tanggal :</label>
-          <br>
-          <input type="date" name="tanggal" value="{{ old('tanggal') }}" class="form-control"> 
-            @error('tanggal')
-              <span class="error">{{ $errors->first('tanggal') }}</span>
-            @enderror 
-        </div>
-
-        <div class="form-group">
-          <label>Unit/Pengirim:</label>
-          <br>
-          <input type="text" name="pengirim" value="{{ old('pengirim') }}" class="form-control">  
-            @error('pengirim')
-              <span class="error">{{ $errors->first('pengirim') }}</span>
-            @enderror
-        </div>   --}}
-
-        <div class="form-group">
-          <label>Ruangan:</label>
-          <select class="form-control" name="id_ruang" id="id_ruang">
-            <option value="">-- Pilih Ruang --</option>
-            @if ($ruangan)
-              @foreach ($ruangan as $d)
-                <option value="{{ $d->id }}">{{ $d->nama }}</option>
-              @endforeach
+            @if(session()->has('message'))
+            <div class="alert alert-success">{{ session()->get('message') }}</div>
             @endif
-          </select>
-        </div>
 
-        <div class="form-group">
-          <label>Uraian Masalah:</label>
-          <br>
-          <textarea name="masalah" class="form-control" placeholder="Uraian Masalah">{{ old('masalah') }}</textarea>
-            @error('masalah')
-              <span class="error">{{ $errors->first('masalah') }}</span>
-            @enderror
-        </div>
+            <form action="{{ url('minta/store') }}" method="post" enctype="multipart/form-data">
+              {{ csrf_field() }}
 
-        <div class="form-group">
-          <label>Photo :</label>
-          <input type="file" name="foto" class="form-control" placeholder="Photo" value="{{ old('foto') }}">
-            @error('foto')
-                <span class="error">{{ $errors->first('foto') }}</span>
-            @enderror
-        </div>
+              <div class="form-group">
+                <label>Ruangan <span class="text-danger">*</span></label>
+                <select class="form-control select2" name="id_ruang" id="id_ruang" required>
+                  <option value="">-- Pilih Ruang --</option>
+                  @if ($ruangan)
+                  @foreach ($ruangan as $d)
+                  <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                  @endforeach
+                  @endif
+                </select>
+              </div>
 
-       {{--  <div class="form-group">
-          <label>Lokasi:</label>
-          <input type="text" name="lokasi" class="form-control" placeholder="lokasi">
-          
-        </div> --}}
+              <div class="form-group">
+                <label>Uraian Masalah <span class="text-danger">*</span></label>
+                <textarea name="masalah" class="form-control" rows="3" placeholder="Jelaskan kendala kerusakan..." required>{{ old('masalah') }}</textarea>
+              </div>
 
-        {{-- <div class="form-group">
-          <label>Lantai:</label>
-          <select class="form-control" name="lantai">
-            <option value="">-- Pilih Lantai --</option>
-            <option {{ (@old('lantai' == 'Basemant' ? 'selected' : '')) }} value="Basemant">Basemant</option>
-            <option {{ (@old('lantai' == 'Lantai 1' ? 'selected' : '')) }} value="Lantai 1">Lantai 1</option>
-            <option {{ (@old('lantai' == 'Lantai 2' ? 'selected' : '')) }} value="Lantai 2">Lantai 2</option>
-            <option {{ (@old('lantai' == 'Lantai 3' ? 'selected' : '')) }} value="Lantai 3">Lantai 3</option>
-          </select>
-            @error('lantai')
-              <span class="error">{{ $errors->first('lantai') }}</span>
-            @enderror
-        </div> --}}
+              <div class="form-group">
+                <label>Foto Kerusakan</label>
+                <input type="file" name="foto" class="form-control-file">
+              </div>
 
-        <div class="row">
-          <div class="col-6">
-            <a style="" class="" href="{{ url('/login') }}"><u>Login Admin</u></a>
-            
-          </div>
-
-          <div class="col-6 float-right">
-            <button style="" type="submit" class="btn btn-primary btn-block">KIRIM</button>
+              <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> KIRIM PERMINTAAN</button>
+            </form>
           </div>
         </div>
+      </div>
 
-      </form>
+      <!-- Riwayat Permintaan -->
+      <div class="col-md-8">
+        <div class="card card-info card-outline">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-history"></i> Riwayat Permintaan Ruangan</h3>
+          </div>
+          <div class="card-body">
 
-    {{--   <div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div> --}}
-      <!-- /.social-auth-links -->
+            <div id="state-pilih-ruangan" class="text-center text-muted p-5">
+              <i class="fas fa-door-open fa-3x mb-3 text-info"></i>
+              <h5>Silakan Pilih Ruangan</h5>
+              <p class="text-sm">Pilih ruangan pada form di sebelah kiri untuk menampilkan riwayat perbaikan.</p>
+            </div>
 
-      {{-- <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
-      </p> --}}
+            <div id="state-loading" class="text-center p-5 d-none">
+              <i class="fas fa-spinner fa-spin fa-2x text-primary mb-2"></i>
+              <p>Memuat data riwayat...</p>
+            </div>
+
+            <div id="state-tabel" class="table-responsive d-none">
+              <table class="table table-bordered table-striped text-sm">
+                <thead class="bg-info text-white">
+                  <tr>
+                    <th width="5%">No</th>
+                    <th>Tanggal</th>
+                    <th>Masalah</th>
+                    <th>Status</th>
+                    <th>Detail Pekerjaan & Teknisi</th>
+                    <th width="22%">Nilai Kepuasan</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-history">
+                  <!-- Render via JS -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- /.login-card-body -->
   </div>
+
+  <!-- Modal Rating / Penilaian Kepuasan -->
+  <div class="modal fade" id="modalRating" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title"><i class="fas fa-star"></i> Penilaian Kepuasan Pelayanan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="form-rating">
+          <div class="modal-body">
+            <input type="hidden" name="id_permintaan" id="rating_id_permintaan">
+
+            <!-- Rating Utama Pekerjaan -->
+            <div class="form-group text-center">
+              <label class="d-block">Bagaimana kepuasan Anda terhadap perbaikan ini?</label>
+              <div class="star-rating" id="star-main">
+                <i class="far fa-star" data-value="1"></i>
+                <i class="far fa-star" data-value="2"></i>
+                <i class="far fa-star" data-value="3"></i>
+                <i class="far fa-star" data-value="4"></i>
+                <i class="far fa-star" data-value="5"></i>
+              </div>
+              <input type="hidden" name="rating_kepuasan" id="input_rating_kepuasan" required>
+            </div>
+
+            <div class="form-group">
+              <label>Catatan / Ulasan Tambahan:</label>
+              <textarea name="catatan_kepuasan" class="form-control" rows="2" placeholder="Masukan atau ucapan terima kasih..."></textarea>
+            </div>
+
+            <hr>
+
+            <!-- Rating Per Orang Teknisi -->
+            <div class="form-group">
+              <label>Penilaian Khusus Per Teknisi:</label>
+              <div id="container-teknisi-rating">
+                <!-- Render via JS -->
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary" id="btn-simpan-rating">
+              <i class="fas fa-save"></i> Simpan Penilaian
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
+  <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url('/src/select2/dist/js/select2.min.js') }}"></script>
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- /.login-box -->
+  <script>
+    $(document).ready(function() {
+      $('#id_ruang').select2({
+        theme: 'bootstrap'
+      });
 
-<!-- jQuery -->
-<script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ url('js/bootstrap-notify.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ url('dist/js/adminlte.min.js') }}"></script>
- <script type="text/javascript" src="{{ url("/src/select2/dist/js/select2.min.js") }}"></script>
-<script type="text/javascript">
-  $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-  $(document).on('click', '.submit', function() {
-            // var data = $("#form").serialize();
-            // var dataform = new FormData(data);
-            var form_data = new FormData($("#form")[0]);
-            $(".submit").attr('disabled','disabled');
-            // event.preventDefault();
-            $.ajax({
-                url:"minta/store",
-                method: "POST",
-                data: form_data,
-                dataType: "JSON",
-                processData: false,
-                contentType: false,
-                success:function(res){
-                    // $(".submit").removeAttr('disabled');
-                    if (res.success) {
-                      $.notify({message: 'Data berhasil dikirim'},{type: 'success'})
-                      
-                      setTimeout(function() {
-                          window.location.reload();
-                      }, 5000);
-                    }
-                    else{
-                      $.notify({message: res.msg},{type: 'danger'});
-                    }
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
 
-                },
-                error:function(){
-                  $.notify({message: 'Terjadi kesalahan'},{type: 'danger'});
+      // Panggil Riwayat saat Ruangan Dipilih
+      $('#id_ruang').on('change', function() {
+        fetchHistory();
+      });
+
+      function fetchHistory() {
+        var id_ruang = $('#id_ruang').val();
+
+        if (!id_ruang) {
+          $('#state-pilih-ruangan').removeClass('d-none');
+          $('#state-loading').addClass('d-none');
+          $('#state-tabel').addClass('d-none');
+          return;
+        }
+
+        $('#state-pilih-ruangan').addClass('d-none');
+        $('#state-tabel').addClass('d-none');
+        $('#state-loading').removeClass('d-none');
+
+        $.get("{{ url('permintaan/history') }}", {
+          id_ruang: id_ruang
+        }, function(res) {
+          $('#state-loading').addClass('d-none');
+
+          if (res.success && res.data.length > 0) {
+            renderTable(res.data);
+            $('#state-tabel').removeClass('d-none');
+          } else {
+            $('#tbody-history').html('<tr><td colspan="6" class="text-center text-muted">Belum ada riwayat permintaan untuk ruangan ini.</td></tr>');
+            $('#state-tabel').removeClass('d-none');
+          }
+        });
+      }
+
+      // Render Tabel Riwayat + Bintang Teknisi
+      function renderTable(data) {
+        var html = '';
+        $.each(data, function(index, item) {
+          html += '<tr>';
+          html += '<td>' + (index + 1) + '</td>';
+          html += '<td>' + item.tanggal + '</td>';
+          html += '<td>' + item.masalah + '</td>';
+
+          // Status
+          if (item.status === 'selesai') {
+            html += '<td><span class="badge badge-success">Selesai</span></td>';
+          } else {
+            html += '<td><span class="badge badge-warning">Pending</span></td>';
+          }
+
+          // Detail Pekerjaan & Rating Teknisi Individual
+          html += '<td>';
+          if (item.pekerjaan) {
+            html += '<b>Pekerjaan:</b> ' + (item.pekerjaan.perbaikan || '-') + '<br>';
+            html += '<b>Keterangan:</b> ' + (item.pekerjaan.keterangan || '-') + '<br>';
+            html += '<div class="mt-1"><b>Teknisi:</b><br>';
+
+            $.each(item.pekerjaan.list_teknisi, function(i, t) {
+              html += '<div class="d-inline-block border rounded px-2 py-1 mr-1 mb-1 bg-white">';
+              html += ' <span class="badge badge-info">' + t.nama + '</span> ';
+
+              // Tampilkan Bintang Rating Teknisi jika ada
+              if (t.rating) {
+                html += '<span class="text-warning text-xs ml-1">';
+                for (var r = 1; r <= 5; r++) {
+                  html += '<i class="' + (r <= t.rating ? 'fas' : 'far') + ' fa-star"></i>';
                 }
-            })
-            /* Act on the event */
+                html += '</span>';
+              }
+              html += '</div>';
+            });
+            html += '</div>';
+          } else {
+            html += '<span class="text-muted">Belum dikerjakan</span>';
+          }
+          html += '</td>';
+
+          // Rating Kepuasan Umum
+          html += '<td class="text-center">';
+          if (item.status === 'selesai') {
+            if (item.rating_kepuasan) {
+              html += '<div class="text-warning mb-1">';
+              for (var i = 1; i <= 5; i++) {
+                html += '<i class="' + (i <= item.rating_kepuasan ? 'fas' : 'far') + ' fa-star"></i>';
+              }
+              html += '</div>';
+              if (item.catatan_kepuasan) {
+                html += '<small class="text-muted d-block"><i>"' + item.catatan_kepuasan + '"</i></small>';
+              }
+            } else {
+              var teknisiJson = item.pekerjaan ? JSON.stringify(item.pekerjaan.list_teknisi) : '[]';
+              html += '<button type="button" class="btn btn-sm btn-outline-success btn-rate" data-id="' + item.id + '" data-teknisi=\'' + teknisiJson + '\'>';
+              html += '<i class="fas fa-star"></i> Beri Nilai</button>';
+            }
+          } else {
+            html += '<span class="text-muted">-</span>';
+          }
+          html += '</td>';
+
+          html += '</tr>';
         });
 
-$(document).on('change', '#show-hide', function(){
-  if(this.checked) {
-           $("#pass").attr('type', 'text'); 
-        }else {
-          $("#pass").attr('type', 'password');
+        $('#tbody-history').html(html);
+      }
+
+      // Star Rating Interaktif Utama
+      $('#star-main i').on('click', function() {
+        var val = $(this).data('value');
+        $('#input_rating_kepuasan').val(val);
+        $('#star-main i').each(function(index) {
+          if (index < val) {
+            $(this).removeClass('far').addClass('fas active');
+          } else {
+            $(this).removeClass('fas active').addClass('far');
+          }
+        });
+      });
+
+      // Modal Rating Buka
+      // Buka Modal Rating & Render Teknisi (VERSI FIX ERROR)
+      $(document).on('click', '.btn-rate', function() {
+        var id = $(this).data('id');
+        var rawTeknisi = $(this).attr('data-teknisi'); // Gunakan .attr() agar selalu membaca String mentah
+        var teknisiList = [];
+
+        // Parsing aman agar tidak crash/error tipe data
+        try {
+          if (typeof rawTeknisi === 'string') {
+            teknisiList = JSON.parse(rawTeknisi);
+          } else if (Array.isArray(rawTeknisi)) {
+            teknisiList = rawTeknisi;
+          }
+        } catch (e) {
+          console.error("Gagal parse data teknisi:", e);
+          teknisiList = [];
         }
-});
 
+        $('#rating_id_permintaan').val(id);
+        $('#input_rating_kepuasan').val('');
+        $('#star-main i').removeClass('fas active').addClass('far');
+        $('#form-rating')[0].reset();
 
-$('div.alert').delay(3000).slideUp(300);
+        var htmlTeknisi = '';
 
+        if (Array.isArray(teknisiList) && teknisiList.length > 0) {
+          $.each(teknisiList, function(i, t) {
+            htmlTeknisi += '<div class="d-flex align-items-center justify-content-between mb-2 p-2 border rounded bg-light">';
+            htmlTeknisi += '  <span><b>' + t.nama + '</b></span>';
+            htmlTeknisi += '  <div class="star-rating-teknisi" data-teknisi-id="' + t.id + '">';
+            for (var k = 1; k <= 5; k++) {
+              htmlTeknisi += '  <i class="far fa-star" data-value="' + k + '"></i> ';
+            }
+            htmlTeknisi += '    <input type="hidden" name="rating_teknisi[' + t.id + ']" class="input-rating-teknisi">';
+            htmlTeknisi += '  </div>';
+            htmlTeknisi += '</div>';
+          });
+        } else {
+          htmlTeknisi = '<small class="text-muted">Tidak ada teknisi spesifik terdaftar.</small>';
+        }
 
-    $(document).ready(function() {
-        $('#id_ruang').select2();
+        $('#container-teknisi-rating').html(htmlTeknisi);
+        $('#modalRating').modal('show');
+      });
+
+      // Star Rating Interaktif Per Teknisi
+      $(document).on('click', '.star-rating-teknisi i', function() {
+        var val = $(this).data('value');
+        var container = $(this).closest('.star-rating-teknisi');
+        container.find('.input-rating-teknisi').val(val);
+        container.find('i').each(function(index) {
+          if (index < val) {
+            $(this).removeClass('far').addClass('fas active');
+          } else {
+            $(this).removeClass('fas active').addClass('far');
+          }
+        });
+      });
+
+      // Submit Penilaian Kepuasan via AJAX + Notifikasi & Auto-refresh Riwayat
+      $('#form-rating').on('submit', function(e) {
+        e.preventDefault();
+
+        if (!$('#input_rating_kepuasan').val()) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Perhatian',
+            text: 'Mohon beri bintang penilaian kepuasan terlebih dahulu!'
+          });
+          return;
+        }
+
+        var btn = $('#btn-simpan-rating');
+        btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Menyimpan...');
+
+        $.ajax({
+          url: "{{ url('permintaan/simpan-rating') }}",
+          type: "POST",
+          data: $(this).serialize(),
+          success: function(res) {
+            btn.prop('disabled', false).html('<i class="fas fa-save"></i> Simpan Penilaian');
+
+            if (res.success) {
+              $('#modalRating').modal('hide');
+
+              // Pop-up Notifikasi Berhasil
+              Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: res.message,
+                timer: 2000,
+                showConfirmButton: false
+              }).then(function() {
+                // Otomatis refresh riwayat ruangan tanpa reload halaman full
+                fetchHistory();
+              });
+            }
+          },
+          error: function() {
+            btn.prop('disabled', false).html('<i class="fas fa-save"></i> Simpan Penilaian');
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal',
+              text: 'Terjadi kesalahan sistem, silakan coba lagi.'
+            });
+          }
+        });
+      });
+
     });
-
-</script>
-  </div>
+  </script>
 </body>
+
 </html>

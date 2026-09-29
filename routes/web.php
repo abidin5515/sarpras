@@ -17,6 +17,9 @@ Route::any('/login', function () {
 	return view('layouts.login');
 });
 
+Route::get('permintaan/history', 'PermintaanController@getHistory');
+Route::post('permintaan/simpan-rating', 'PermintaanController@simpanRating');
+
 Route::get("/", "PermintaanController@create");
 Route::get("/minta", "PermintaanController@create");
 Route::post("/minta/store", "PermintaanController@store");
@@ -32,6 +35,8 @@ Route::get('autoLogin', function () {
 Route::get("/show_jadwal_ipsrs/", "UploadJadwalController@show_jadwal_ipsrs");
 
 Route::group(['middleware' => 'AuthUser'], function () {
+
+	Route::get('admin/laporan-rating', 'LaporanRatingController@index');
 
 	Route::resource("kegiatan-sarpras", "KegiatanSarprasController");
 
