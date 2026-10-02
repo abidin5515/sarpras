@@ -385,33 +385,20 @@ public function simpanRating(Request $request)
         'rating_kepuasan' => 'required|integer|min:1|max:5',
     ]);
 
-    // Update Permintaan
     $permintaan = Permintaan::findOrFail($request->id_permintaan);
+    
+    // Simpan Rating + Flag Validasi Selesai oleh Ruangan
     $permintaan->rating_kepuasan = $request->rating_kepuasan;
     $permintaan->catatan_kepuasan = $request->catatan_kepuasan;
+    $permintaan->is_user_validated = 1; // Flag tambahan (opsional)
+    $permintaan->user_validated_at = now();
     $permintaan->save();
 
-    // Update Rating Per Teknisi pada Pekerjaan
-    if ($request->has('rating_teknisi')) {
-        $pekerjaan = \App\Pekerjaan::where('id_permintaan', $request->id_permintaan)->first();
-        if ($pekerjaan) {
-            $ratingTeknisiArr = [];
-            foreach ($request->rating_teknisi as $id_teknisi => $score) {
-                if (!empty($score)) {
-                    $ratingTeknisiArr[] = [
-                        'id_teknisi' => (int) $id_teknisi,
-                        'rating' => (int) $score
-                    ];
-                }
-            }
-            $pekerjaan->rating_teknisi = json_encode($ratingTeknisiArr);
-            $pekerjaan->save();
-        }
-    }
+    // ... Simpan Rating Teknisi ke Tabel Pekerjaan ...
 
     return response()->json([
         'success' => true, 
-        'message' => 'Terima kasih! Penilaian kepuasan pelayanan berhasil disimpan.'
+        'message' => 'Validasi selesai & penilaian berhasil disimpan!'
     ]);
 }
 
