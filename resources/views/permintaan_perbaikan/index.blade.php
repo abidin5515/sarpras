@@ -145,9 +145,13 @@
             $('#table-permintaan').DataTable({
                 "order": [
                     [1, "desc"]
-                ] // Mengurutkan berdasarkan kolom kedua (Tanggal Lapor) secara menurun
+                ], // Mengurutkan berdasarkan kolom kedua (Tanggal Lapor) secara menurun
+                "pageLength": 30, // Mengatur jumlah data yang tampil default menjadi 30
+                "lengthMenu": [
+                    [30, 50, 100, -1],
+                    [30, 50, 100, "Semua"]
+                ] // Menambahkan opsi 30 dan opsi "Semua" di dropdown pilihan baris
             });
         });
     </script>
-
 @endpush
