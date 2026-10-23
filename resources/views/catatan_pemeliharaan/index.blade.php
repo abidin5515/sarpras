@@ -21,7 +21,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Catatan Perbaikan</h3>
+              <h3 class="card-title">Kerusakan</h3>
               <div class="card-tools">
                 {{-- <a href="{{ route('catatan-pemeliharaan.create') }}" class="btn btn-primary">+ TAMBAH</a> --}}
 
