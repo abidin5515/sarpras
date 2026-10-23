@@ -137,3 +137,17 @@
         </div>
     </section>
 @endsection
+
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#table-permintaan').DataTable({
+                "order": [
+                    [1, "desc"]
+                ] // Mengurutkan berdasarkan kolom kedua (Tanggal Lapor) secara menurun
+            });
+        });
+    </script>
+
+@endpush
