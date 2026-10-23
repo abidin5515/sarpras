@@ -88,7 +88,7 @@
 
                             <div class="form-group">
                                 <label>Foto Kerusakan</label>
-                                <input type="file" name="foto" class="form-control-file">
+                                <input type="file" name="foto" class="form-control-file" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i>

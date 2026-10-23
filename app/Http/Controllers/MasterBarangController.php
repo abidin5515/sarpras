@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DataTables;
-use App\MasterBarang; 
+use App\MasterBarang;
 
 
 class MasterBarangController extends Controller
@@ -18,33 +19,31 @@ class MasterBarangController extends Controller
     protected $url = "master-barang";
 
 
-  
 
 
 
-    public function json(){
-          $data = MasterBarang::select([
-'master_barang.id',
-'master_barang.nama',
-'master_barang.kode',
-]);
 
-            return Datatables::of($data)->addColumn('action',function($d){
-                return '<button data-title="Ubah" class="btn btn-sm btn-warning create-btn edit-btn" data-src="'.url($this->url.'/'.$d->id.'/edit').'"><i class="fas fa-edit"></i></button>';
+    public function json()
+    {
+        $data = MasterBarang::select([
+            'master_barang.id',
+            'master_barang.nama',
+            'master_barang.kode',
+        ]);
 
-
-            })->editColumn('ttd',function($d){
-                if (!empty($d->ttd)) {
-                    # code...
-                return '<img src="'.url($d->ttd).'" style="width:100px;height:100px">';
-
-                }
-                return '';
-            })
+        return Datatables::of($data)->addColumn('action', function ($d) {
+            return '<button data-title="Ubah" class="btn btn-sm btn-warning create-btn edit-btn" data-src="'.url($this->url.'/'.$d->id.'/edit').'"><i class="fas fa-edit"></i></button> '.
+                   '<button data-title="Setting Checklist" class="btn btn-sm btn-info create-btn" data-src="'.url($this->url.'/'.$d->id.'/checklist').'"><i class="fas fa-list-check"></i>Checklist</button>';
+        })->editColumn('ttd', function ($d) {
+            if (!empty($d->ttd)) {
+                # code...
+                return '<img src="' . url($d->ttd) . '" style="width:100px;height:100px">';
+            }
+            return '';
+        })
 
             ->addIndexColumn()
             ->make(true);
-
     }
 
 
@@ -63,8 +62,8 @@ class MasterBarangController extends Controller
         //     $kepala = NULL;
         // }
 
-          // $data = @Table::all();
-        return view($this->dir.'/index',compact('title'));
+        // $data = @Table::all();
+        return view($this->dir . '/index', compact('title'));
     }
 
     /**
@@ -78,9 +77,9 @@ class MasterBarangController extends Controller
 
 
         $title = "Create";
-        
-        
-        return view($this->dir.'/create',compact('title'));
+
+
+        return view($this->dir . '/create', compact('title'));
     }
 
     /**
@@ -106,37 +105,32 @@ class MasterBarangController extends Controller
 
 
 
-    $validatedData = $request->validate([
-      "nama" => "required" ,
-      "kode" => "required" ,
-    ]);
+        $validatedData = $request->validate([
+            "nama" => "required",
+            "kode" => "required",
+        ]);
 
 
-    $b = new MasterBarang;
+        $b = new MasterBarang;
 
-    $b->nama = strtoupper($request->nama);
-    $b->kode = strtoupper($request->kode);
-   
-    $save = $b->save();
-    if ($save) {
+        $b->nama = strtoupper($request->nama);
+        $b->kode = strtoupper($request->kode);
+
+        $save = $b->save();
+        if ($save) {
             $msg = "data saved successfully";
             $success = true;
-
-
-        }
-        else {
+        } else {
 
             $msg = "data failed to save";
             $success = false;
-
         }
-    
-        return [
-          'success'=>$success,
-          'msg'=>$msg
-        ];
 
-}
+        return [
+            'success' => $success,
+            'msg' => $msg
+        ];
+    }
 
       
 
@@ -144,7 +138,7 @@ class MasterBarangController extends Controller
         // print_r($request->all());
 
 
-    
+
 
     /**
      * Display the specified resource.
@@ -160,7 +154,7 @@ class MasterBarangController extends Controller
         $table = Teknisi::find($id);
         $title = "";
         $subtitle = "";
-        return view($this->dir.'/info',compact('data','table','title','subtitle'));
+        return view($this->dir . '/info', compact('data', 'table', 'title', 'subtitle'));
     }
 
     /**
@@ -178,11 +172,11 @@ class MasterBarangController extends Controller
 
         $title = "Edit Data";
         $subtitle = "";
-        
 
-        
 
-        return view($this->dir.'/edit',compact('data','title','subtitle'));
+
+
+        return view($this->dir . '/edit', compact('data', 'title', 'subtitle'));
     }
 
     /**
@@ -194,41 +188,37 @@ class MasterBarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-     
 
-    $validatedData = $request->validate([
-      "nama" => "required" ,
-      "kode" => "required" ,
-    ]);
 
-    $b = MasterBarang::find($id);
+        $validatedData = $request->validate([
+            "nama" => "required",
+            "kode" => "required",
+        ]);
 
-    $b->nama = strtoupper($request->nama);
-    $b->kode = strtoupper($request->kode);
-   
-    $save = $b->save();
+        $b = MasterBarang::find($id);
 
-       if ($save) {
-        //Do Your Something
-          $status = 1;
+        $b->nama = strtoupper($request->nama);
+        $b->kode = strtoupper($request->kode);
+
+        $save = $b->save();
+
+        if ($save) {
+            //Do Your Something
+            $status = 1;
             // return redirect($this->url);
             $msg = "Data Successfully Updated";
-          $success = true;
-        }
-        else {
-        //Do Your Something 
-          $status =0;
-          $success = false;
+            $success = true;
+        } else {
+            //Do Your Something 
+            $status = 0;
+            $success = false;
             $msg = "Data Failed to Update";
-
         }
 
         return [
-          'success'=>$success,
-          'msg'=>$msg
+            'success' => $success,
+            'msg' => $msg
         ];
-
-
     }
 
     /**
@@ -237,29 +227,27 @@ class MasterBarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,Request $request)
+    public function destroy($id, Request $request)
     {
         //
         $table = MasterBarang::find($id);
         $delete = $table->delete();
-         if ($delete) {
-        $success= true;
-          $msg = 'Data Deleted successfully';
+        if ($delete) {
+            $success = true;
+            $msg = 'Data Deleted successfully';
+        } else {
 
-        }
-        else {
-
-          $msg = 'Failed to delete ';
+            $msg = 'Failed to delete ';
             $success = false;
         }
 
         return [
-          'success'=>$success,
-          'msg'=>$msg
+            'success' => $success,
+            'msg' => $msg
         ];
     }
 
-    
+
 
 
     // public function select2(Request $req){
@@ -272,7 +260,7 @@ class MasterBarangController extends Controller
     //     $data = Teknisi::select(['teknisi.id','teknisi.nama as text','ttd'])->limit(10);
 
     //     }
-       
+
     //         foreach ($data->get() as $key => $value) {
     //             # code...
     //             $resuts[] =[
@@ -289,54 +277,87 @@ class MasterBarangController extends Controller
     // }
 
 
-    public function select2(Request $req){
-    $q = $req->q;
-    $data = MasterBarang::select(['master_barang.id','master_barang.nama as text'])->where('nama','like', '%'.$q.'%');
+    public function select2(Request $req)
+    {
+        $q = $req->q;
+        $data = MasterBarang::select(['master_barang.id', 'master_barang.nama as text'])->where('nama', 'like', '%' . $q . '%');
         $resuts = [];
 
-    if ($data->count()==0) {
-        # code...
-    $data = MasterBarang::select(['master_barang.id','master_barang.nama as text'])->limit(10);
+        if ($data->count() == 0) {
+            # code...
+            $data = MasterBarang::select(['master_barang.id', 'master_barang.nama as text'])->limit(10);
+        }
 
-    }
-   
         foreach ($data->get() as $key => $value) {
-            $resuts[] =[
-                'id'=>$value->id,
-                'text'=>$value->text,
+            $resuts[] = [
+                'id' => $value->id,
+                'text' => $value->text,
             ];
         }
 
 
-    return $resuts;
+        return $resuts;
     }
 
 
 
-    public function select2f(Request $req){
-    $q = $req->q;
-    $data = MasterBarang::select(['master_barang.id','master_barang.nama as text'])->where('nama','like', '%'.$q.'%');
+    public function select2f(Request $req)
+    {
+        $q = $req->q;
+        $data = MasterBarang::select(['master_barang.id', 'master_barang.nama as text'])->where('nama', 'like', '%' . $q . '%');
         $resuts = [];
 
-    if ($data->count()==0) {
-        # code...
-    $data = MasterBarang::select(['master_barang.id','master_barang.nama as text'])->limit(10);
+        if ($data->count() == 0) {
+            # code...
+            $data = MasterBarang::select(['master_barang.id', 'master_barang.nama as text'])->limit(10);
+        }
 
-    }
-   
         foreach ($data->get() as $key => $value) {
-            $resuts[] =[
-                'id'=>$value->id,
-                'text'=>$value->text,
+            $resuts[] = [
+                'id' => $value->id,
+                'text' => $value->text,
             ];
         }
 
-    $array[] = array('id'=> '-', 'text'=> '-Semua-');
-    $data = array_merge($array, $resuts);    
-    return $data;
+        $array[] = array('id' => '-', 'text' => '-Semua-');
+        $data = array_merge($array, $resuts);
+        return $data;
     }
 
-    
+    // ==========================================
+    // FITUR SETTING CHECKLIST PER MASTER BARANG
+    // ==========================================
 
+    // Menampilkan halaman/modal setting checklist
+    public function checklistIndex($id)
+    {
+        $data = MasterBarang::find($id);
+        $title = "Setting Checklist: " . $data->nama;
+        
+        // Ambil data checklist yang sudah ada
+        $checklists = \App\MasterChecklist::where('master_barang_id', $id)->orderBy('urutan', 'asc')->get();
 
+        return view('master-barang.checklist', compact('data', 'title', 'checklists'));
+    }
+
+    // Menyimpan / Memperbarui setting checklist (mendukung AJAX)
+public function checklistStore(Request $request, $id)
+    {
+        // Hapus data lama untuk master barang ini, lalu simpan ulang
+        \App\MasterChecklist::where('master_barang_id', $id)->delete();
+
+        if ($request->has('pertanyaan')) {
+            foreach ($request->pertanyaan as $index => $item) {
+                if (!empty($item)) {
+                    \App\MasterChecklist::create([
+                        'master_barang_id' => $id,
+                        'pertanyaan' => strtoupper($item),
+                        'urutan' => $index + 1
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Setting checklist berhasil disimpan!');
+    }
 }

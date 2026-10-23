@@ -304,7 +304,7 @@
             </a>
           </li> 
 
-           <li class="nav-item">
+           {{-- <li class="nav-item">
             <a href="{{ url('permintaan') }}" class="nav-link {{sidebar_active('permintaan')}} ">
               <i class="nav-icon fas fa-exclamation-circle"></i>
               <p>
@@ -320,7 +320,7 @@
                 Permintaan Selesai
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="{{ url('jadwal_ipsrs') }}" class="nav-link {{sidebar_active('jadwal_ipsrs')}} ">

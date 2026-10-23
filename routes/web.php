@@ -112,6 +112,15 @@ Route::group(['middleware' => 'AuthUser'], function () {
 	Route::resource("/data-alkes", "DataAlkesController");
 
 
+	Route::get('inventaris/{id}/checklist-detail', 'InventarisChecklistController@show');
+Route::post('inventaris/{id}/checklist-detail', 'InventarisChecklistController@store');
+
+
+	Route::get('inventaris/{id}/checklist', 'InventarisChecklistController@index');
+	Route::post('inventaris/{id}/checklist', 'InventarisChecklistController@store');
+	Route::get('inventaris/rekap-checklist', 'InventarisChecklistController@rekap');
+
+
 	Route::get("/inventaris/select2", "InventarisController@select2")->name("inventaris.select2");
 	Route::get("/inventaris/json", "InventarisController@json")->name("inventaris.json");
 	Route::get("/inventaris/export", "InventarisController@export");
@@ -278,6 +287,15 @@ Route::group(['middleware' => 'AuthUser'], function () {
 
 	Route::get("/master_ceklis/json", "MasterCeklisController@json")->name("master_ceklis.json");
 	Route::resource("/master_ceklis", "MasterCeklisController");
+
+	Route::get('master-barang/{id}/checklist-setting', 'ChecklistController@settingIndex');
+	Route::post('master-barang/{id}/checklist-setting', 'ChecklistController@settingStore');
+
+	// Route::get('inventaris/{id}/checklist', 'ChecklistController@createChecklist');
+	// Route::post('inventaris/{id}/checklist', 'ChecklistController@storeChecklist');
+
+	Route::get('master-barang/{id}/checklist', 'MasterBarangController@checklistIndex');
+	Route::post('master-barang/{id}/checklist', 'MasterBarangController@checklistStore');
 });
 
 
