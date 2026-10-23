@@ -269,7 +269,7 @@
           {{-- <br> --}}
           {{-- <br> --}}
           <li class="nav-item">
-            <a href="{{ url('catatan-pemeliharaan') }}" class="nav-link {{sidebar_active('catatan-pemeliharaan')}} ">
+            <a href="{{ url('permintaan-perbaikan') }}" class="nav-link {{sidebar_active('permintaan-perbaikan')}} ">
               <i class="nav-icon fas fa-pen-alt"></i>
               <p>
                 Kerusakan
@@ -331,14 +331,14 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ url('pengadaan') }}" class="nav-link {{sidebar_active('pengadaan')}} ">
               <i class="nav-icon fas fa-list"></i>
               <p>
                 Pengadaan
               </p>
             </a>
-          </li>
+          </li> --}}
           
           <li class="nav-item">
             <a href="{{ url('inventaris') }}" class="nav-link {{sidebar_active('inventaris')}} ">

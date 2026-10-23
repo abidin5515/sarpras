@@ -113,7 +113,7 @@ Route::group(['middleware' => 'AuthUser'], function () {
 
 
 	Route::get('inventaris/{id}/checklist-detail', 'InventarisChecklistController@show');
-Route::post('inventaris/{id}/checklist-detail', 'InventarisChecklistController@store');
+	Route::post('inventaris/{id}/checklist-detail', 'InventarisChecklistController@store');
 
 
 	Route::get('inventaris/{id}/checklist', 'InventarisChecklistController@index');
@@ -296,6 +296,17 @@ Route::post('inventaris/{id}/checklist-detail', 'InventarisChecklistController@s
 
 	Route::get('master-barang/{id}/checklist', 'MasterBarangController@checklistIndex');
 	Route::post('master-barang/{id}/checklist', 'MasterBarangController@checklistStore');
+
+
+	Route::get('permintaan-perbaikan', 'PermintaanPerbaikanController@index');
+	Route::get('permintaan-perbaikan/kerjakan/{id}', 'PermintaanPerbaikanController@kerjakan');
+	Route::post('permintaan-perbaikan/store', 'PermintaanPerbaikanController@store');
+
+	// Route Baru
+	Route::get('permintaan-perbaikan/show/{id}', 'PermintaanPerbaikanController@show');
+	Route::get('permintaan-perbaikan/edit/{id_pekerjaan}', 'PermintaanPerbaikanController@edit');
+	Route::post('permintaan-perbaikan/update/{id_pekerjaan}', 'PermintaanPerbaikanController@update');
+	Route::get('permintaan-perbaikan/print-pdf/{id_pekerjaan}', 'PermintaanPerbaikanController@printPdf');
 });
 
 

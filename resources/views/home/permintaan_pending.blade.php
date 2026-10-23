@@ -19,7 +19,7 @@
 						<img width="60px" src="{{ url(@$d->foto) }}">
 					@endif
 				</td>
-				<td><a class="btn btn-sm btn-primary" href="{{ url('catatan-pemeliharaan/create?id_permintaan=').$d->id }}">Kerjakan</a></td>
+				<td><a class="btn btn-sm btn-primary" href="{{ url('permintaan-perbaikan/kerjakan').'/'.$d->id }}">Kerjakan</a></td>
 			</tr>
 		@endforeach
 	</table>
