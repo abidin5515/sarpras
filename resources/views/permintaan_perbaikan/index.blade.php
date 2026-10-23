@@ -54,6 +54,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal Lapor</th>
+                                    <th>Ruangan / Lokasi</th> <!-- Kolom Baru -->
                                     <th>Permasalahan</th>
                                     <th>Tindakan Sementara & Perbaikan</th>
                                     <th>Waktu Pengerjaan</th>
@@ -66,7 +67,13 @@
                                 @foreach ($permintaan as $key => $item)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
+                                        <td>
+                                            <!-- Format sortable untuk DataTables -->
+                                            <span
+                                                style="display:none;">{{ date('Y-m-d H:i:s', strtotime($item->created_at)) }}</span>
+                                            {{ date('d-m-Y', strtotime($item->created_at)) }}
+                                        </td>
+                                        <td>{{ @$item->ruangan->nama ?? ($item->lokasi ?? '-') }}</td> <!-- Data Ruangan -->
                                         <td>{{ $item->masalah }}</td>
                                         <td>
                                             @if ($item->id_pekerjaan)
@@ -90,7 +97,6 @@
                                                 @php
                                                     $id_tek = explode(',', $item->id_teknisi);
                                                     foreach ($id_tek as $t) {
-                                                        // Memanfaatkan helper fungsi lama Anda
                                                         echo '<span class="badge badge-info">' .
                                                             ambil_teknisi($t) .
                                                             '</span> ';
@@ -108,12 +114,12 @@
                                         </td>
                                         <td>
                                             @if (!$item->id_pekerjaan)
-                                                <a href="{{ url('permintaan-perbaikan/kerjakan/' . $item->id_permintaan) }}"
+                                                <a href="{{ url('permintaan-perbaikan/kerjakan/' . $item->id) }}"
                                                     class="btn btn-primary btn-sm btn-block mb-1">
                                                     <i class="fas fa-tools"></i> Kerjakan
                                                 </a>
                                             @else
-                                                <a href="{{ url('permintaan-perbaikan/show/' . $item->id_permintaan) }}"
+                                                <a href="{{ url('permintaan-perbaikan/show/' . $item->id) }}"
                                                     class="btn btn-info btn-sm mb-1" title="Detail">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

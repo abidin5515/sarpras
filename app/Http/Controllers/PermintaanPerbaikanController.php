@@ -11,40 +11,47 @@ use PDF; // Panggil library PDF jika diperlukan
 class PermintaanPerbaikanController extends Controller
 {
     // Menampilkan halaman index (List Laporan Rusak)
-   // 1. HALAMAN INDEX DENGAN FILTER
-  public function index(Request $request)
-{
-    // Atur default tanggal: Hari ini dan 2 bulan yang lalu
-    $default_sampai = date('Y-m-d');
-    $default_dari = date('Y-m-d', strtotime('-2 months'));
+    // 1. HALAMAN INDEX DENGAN FILTER
+    public function index(Request $request)
+    {
+        // Atur default tanggal: Hari ini dan 2 bulan yang lalu
+        $default_sampai = date('Y-m-d');
+        $default_dari = date('Y-m-d', strtotime('-2 months'));
 
-    // Tangkap request atau gunakan default
-    $dari_tanggal = $request->filled('dari_tanggal') ? $request->dari_tanggal : $default_dari;
-    $sampai_tanggal = $request->filled('sampai_tanggal') ? $request->sampai_tanggal : $default_sampai;
-    $status = $request->status;
+        // Tangkap request atau gunakan default
+        $dari_tanggal = $request->filled('dari_tanggal') ? $request->dari_tanggal : $default_dari;
+        $sampai_tanggal = $request->filled('sampai_tanggal') ? $request->sampai_tanggal : $default_sampai;
+        $status = $request->status;
 
-    // Join tabel permintaan dengan pekerjaan
-   $query = Permintaan::leftJoin('pekerjaan', 'permintaan.id', '=', 'pekerjaan.id_permintaan')
-        ->select(
-            'permintaan.id as id_permintaan', 'permintaan.created_at', 'permintaan.masalah', 'permintaan.status', 'permintaan.foto as foto_laporan',
-            'pekerjaan.id as id_pekerjaan', 'pekerjaan.tindakan_sementara', 'pekerjaan.tindakan_perbaikan', 'pekerjaan.id_teknisi', 'pekerjaan.tanggal', 
-            'pekerjaan.jam_mulai', 'pekerjaan.jam_selesai' // <--- Tambahkan jam_selesai di sini
-        );
+        // Join tabel permintaan dengan pekerjaan
+        // Pada fungsi index()
+        $query = Permintaan::with('ruangan') // Tambahkan with('ruangan') jika menggunakan relasi model
+            ->leftJoin('pekerjaan', 'permintaan.id', '=', 'pekerjaan.id_permintaan')
+            ->select(
+                'permintaan.*', // <-- Mengambil seluruh kolom permintaan termasuk id_ruangan/lokasi
+                'pekerjaan.id as id_pekerjaan',
+                'pekerjaan.tindakan_sementara',
+                'pekerjaan.tindakan_perbaikan',
+                'pekerjaan.id_teknisi',
+                'pekerjaan.tanggal',
+                'pekerjaan.jam_mulai',
+                'pekerjaan.jam_selesai'
+            );
 
-    // Filter berdasarkan rentang tanggal lapor (created_at)
-    $query->whereDate('permintaan.created_at', '>=', $dari_tanggal)
-          ->whereDate('permintaan.created_at', '<=', $sampai_tanggal);
+        // Filter berdasarkan rentang tanggal lapor (created_at)
+        $query->whereDate('permintaan.created_at', '>=', $dari_tanggal)
+            ->whereDate('permintaan.created_at', '<=', $sampai_tanggal);
 
-    // Filter berdasarkan status jika dipilih
-    if (!empty($status)) {
-        $query->where('permintaan.status', $status);
+        // Filter berdasarkan status jika dipilih
+        if (!empty($status)) {
+            $query->where('permintaan.status', $status);
+        }
+
+        $permintaan = $query->orderBy('permintaan.created_at', 'desc')->get();
+
+        // Kirim data dan parameter filter ke view agar inputan tidak kereset saat difilter
+        return view('permintaan_perbaikan.index', compact('permintaan', 'dari_tanggal', 'sampai_tanggal', 'status'));
     }
-
-    $permintaan = $query->orderBy('permintaan.created_at', 'desc')->get();
-    
-    // Kirim data dan parameter filter ke view agar inputan tidak kereset saat difilter
-    return view('permintaan_perbaikan.index', compact('permintaan', 'dari_tanggal', 'sampai_tanggal', 'status'));
-}
 
     // 2. TAMPILKAN DETAIL (SHOW)
     public function show($id)
@@ -63,7 +70,7 @@ class PermintaanPerbaikanController extends Controller
         $pekerjaan = Pekerjaan::findOrFail($id_pekerjaan);
         $permintaan = Permintaan::findOrFail($pekerjaan->id_permintaan);
         $teknisi = Teknisi::all();
-        
+
         // Teknisi yang sudah dipilih sebelumnya
         $teknisi_terpilih = $pekerjaan->id_teknisi ? explode(',', $pekerjaan->id_teknisi) : [];
 
@@ -74,15 +81,17 @@ class PermintaanPerbaikanController extends Controller
     public function update(Request $request, $id_pekerjaan)
     {
         $pekerjaan = Pekerjaan::findOrFail($id_pekerjaan);
-        
+
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $namaFile = time() . '_' . $file->getClientOriginalName();
             $tujuan_upload = 'gambar_pekerjaan/';
             $namaUpload = $tujuan_upload . $namaFile;
-            
+
             $img = Image::make($file->getRealPath());
-            $img->resize(450, 450, function ($constraint) { $constraint->aspectRatio(); })->save($tujuan_upload . $namaFile);
+            $img->resize(450, 450, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($tujuan_upload . $namaFile);
             $pekerjaan->foto = $namaUpload;
         }
 
@@ -115,8 +124,8 @@ class PermintaanPerbaikanController extends Controller
 
         $pdf = PDF::loadView('permintaan_perbaikan.print_pdf', compact('data'));
         $pdf->setPaper('A4', 'portrait');
-        
-        return $pdf->stream('Laporan_Perbaikan_'.$data->id_pekerjaan.'.pdf');
+
+        return $pdf->stream('Laporan_Perbaikan_' . $data->id_pekerjaan . '.pdf');
     }
 
     // Menampilkan halaman form perbaikan (kiri data, kanan form)
@@ -128,7 +137,7 @@ class PermintaanPerbaikanController extends Controller
         return view('permintaan_perbaikan.kerjakan', compact('permintaan', 'teknisi'));
     }
 
-public function store(Request $request)
+    public function store(Request $request)
     {
         // 1. Ubah validasi foto menjadi nullable (opsional)
         $request->validate([
@@ -137,8 +146,8 @@ public function store(Request $request)
             // 'tindakan_perbaikan' => 'required',
             'tanggal' => 'required',
             'jam_mulai' => 'required',     // <--- Ubah dari 'jam'
-        'jam_selesai' => 'required',
-            'foto' => 'nullable|image', 
+            'jam_selesai' => 'required',
+            'foto' => 'nullable|image',
             'id_teknisi' => 'required|array',
         ]);
 
@@ -150,7 +159,7 @@ public function store(Request $request)
             $namaFile = time() . '_' . $file->getClientOriginalName();
             $tujuan_upload = 'gambar_pekerjaan/';
             $namaUpload = $tujuan_upload . $namaFile;
-            
+
             $img = Image::make($file->getRealPath());
             $img->resize(450, 450, function ($constraint) {
                 $constraint->aspectRatio();
@@ -168,12 +177,12 @@ public function store(Request $request)
         $pekerjaan->jam_mulai = $request->jam;
         $pekerjaan->status = $request->status;
         $pekerjaan->id_teknisi = $id_teknisi;
-        $pekerjaan->jam_selesai = $request->jam; 
-        $pekerjaan->lokasi = $request->lokasi ?? '-'; 
-        
+        $pekerjaan->jam_selesai = $request->jam;
+        $pekerjaan->lokasi = $request->lokasi ?? '-';
+
         // 3. Simpan namaUpload hanya jika ada file yang diunggah
         if ($namaUpload) {
-            $pekerjaan->foto = $namaUpload; 
+            $pekerjaan->foto = $namaUpload;
         }
 
         $pekerjaan->save();
