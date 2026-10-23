@@ -272,7 +272,7 @@
             <a href="{{ url('catatan-pemeliharaan') }}" class="nav-link {{sidebar_active('catatan-pemeliharaan')}} ">
               <i class="nav-icon fas fa-pen-alt"></i>
               <p>
-                Catatan Perbaikan
+                Kerusakan
               </p>
             </a>
           </li>
